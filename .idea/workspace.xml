@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ac6ce1b-eafc-4f9a-a23f-f9113f0e2687" name="Changes" comment="Updated .gitignore">
+    <list default="true" id="4ac6ce1b-eafc-4f9a-a23f-f9113f0e2687" name="Changes" comment="- Added Solve and ValidGrid methods&#10;- Added structure for future development">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Sudoku.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Sudoku.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SudokuClassic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SudokuClassic.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,6 +88,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Updated .gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated .gitignore" />
+    <MESSAGE value="- Added Solve and ValidGrid methods&#10;- Added structure for future development" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Added Solve and ValidGrid methods&#10;- Added structure for future development" />
   </component>
 </project>
