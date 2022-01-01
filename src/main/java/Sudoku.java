@@ -1,6 +1,3 @@
-
-
-
 public class Sudoku {
     public enum SudokuType{
         Classic,
@@ -56,5 +53,20 @@ public class Sudoku {
             }
         }
         System.out.println(new String(new char[13]).replace("\0", "-"));
+        //System.out.println("\n");
+    }
+
+    public void PrintSudokuStats(){
+        int cellsGiven = 0;
+
+        for(int[] row : grid){
+            for(int cell : row){
+                if(cell != 0){
+                    cellsGiven++;
+                }
+            }
+        }
+
+        System.out.println("Number of cells given: " + cellsGiven);
     }
 }
