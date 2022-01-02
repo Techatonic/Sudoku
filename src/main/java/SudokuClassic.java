@@ -26,6 +26,7 @@ public class SudokuClassic {
         return Remove(sudoku, possibilities);
     }
     private static int[][] Remove(Sudoku sudoku, List<List<List<Integer>>> possibilities){
+        System.out.println("\n\n");
         int[][] grid = Arrays.stream(sudoku.grid).map(int[]::clone).toArray(int[][]::new);
 
         sudoku.PrintSudoku();
@@ -37,6 +38,7 @@ public class SudokuClassic {
         System.out.println("[" + choice.get(0) + ", " + choice.get(1) + "]");
 
         int solutionsFound = SolveSudoku(new Sudoku(sudoku.type, Arrays.stream(sudoku.grid).map(int[]::clone).toArray(int[][]::new)), 0);
+        System.out.println("Solutions Found: " + solutionsFound);
         if(solutionsFound == 1){
             possibilities.get(choiceRowIndex).remove(choiceRow.indexOf(choice));
             if(possibilities.get(choiceRowIndex).size() == 0){
@@ -85,7 +87,8 @@ public class SudokuClassic {
 
 
     static int SolveSudoku(Sudoku sudoku, int solutionsFound){
-        int[][] grid = sudoku.grid;
+        System.out.println("\n");
+        int[][] grid = Arrays.stream(sudoku.grid).map(int[]::clone).toArray(int[][]::new);
 
         int[] nextEmpty = null;
         for(int row=0; row < grid.length; row++){
@@ -106,14 +109,18 @@ public class SudokuClassic {
         }
 
         for(int attempt=1; attempt < 10; attempt++){
-            sudoku.setPosition(nextEmpty[0], nextEmpty[1], attempt);
-            if(!ValidGrid(sudoku.grid)){
+            //sudoku.setPosition(nextEmpty[0], nextEmpty[1], attempt);
+            grid[nextEmpty[0]][nextEmpty[1]] = attempt;
+            System.out.println("Attempting Value: " + attempt + " at [" + nextEmpty[0] + ", " + nextEmpty[1] + "]");
+            //if(!ValidGrid(sudoku.grid)){
+            if(!ValidGrid(grid)){
                 continue;
             }
-            return SolveSudoku(sudoku, solutionsFound);
+            //solutionsFound = SolveSudoku(sudoku, solutionsFound);
+            solutionsFound = SolveSudoku(new Sudoku(sudoku.type, grid), solutionsFound);
         }
 
-         return solutionsFound;
+        return solutionsFound;
     }
 
     static boolean ValidGrid(int[][] grid){
