@@ -5,8 +5,8 @@ public class Sudoku {
     }
 
 
-    SudokuType type;
-    int[][] grid;
+    private SudokuType type;
+    private int[][] grid;
 
     public Sudoku(SudokuType type, int[][] grid){
         this.type = type;

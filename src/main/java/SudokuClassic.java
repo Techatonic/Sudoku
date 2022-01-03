@@ -4,15 +4,17 @@ import java.util.stream.IntStream;
 
 public class SudokuClassic {
 
+    static int attemptsToDo = 5;
+
     public static Sudoku GenerateSudoku(Sudoku sudoku){
-        Pair<Boolean, List<List<Integer>>> result = Generate(sudoku.grid, new int[]{0, 0});
+        Pair<Boolean, List<List<Integer>>> result = Generate(sudoku.getGrid(), new int[]{0, 0});
         int[][] grid = new int[9][9];
         for(int row = 0; row < 9; row++){
             grid[row] = result.getSecond().get(row).stream().mapToInt(i->i).toArray();
         }
-        Sudoku generatedGrid = new Sudoku(sudoku.type, grid);
+        Sudoku generatedGrid = new Sudoku(sudoku.getType(), grid);
 
-        return new Sudoku(sudoku.type, RemoveCells(generatedGrid));
+        return new Sudoku(sudoku.getType(), RemoveCells(generatedGrid));
     }
 
     private static int[][] RemoveCells(Sudoku sudoku) {
@@ -27,25 +29,33 @@ public class SudokuClassic {
     }
     private static int[][] Remove(Sudoku sudoku, List<List<List<Integer>>> possibilities){
         System.out.println("\n\n");
-        int[][] grid = Arrays.stream(sudoku.grid).map(int[]::clone).toArray(int[][]::new);
+        int[][] grid;
 
-        sudoku.PrintSudoku();
+        for (int attempt = 0; attempt < attemptsToDo; attempt++){
+            grid = Arrays.stream(sudoku.getGrid()).map(int[]::clone).toArray(int[][]::new);
+            sudoku.PrintSudoku();
 
-        int choiceRowIndex = new Random(System.currentTimeMillis()).nextInt(possibilities.size());
-        List<List<Integer>> choiceRow = possibilities.get(choiceRowIndex);
-        List<Integer> choice = choiceRow.get(new Random(System.currentTimeMillis()).nextInt(choiceRow.size()));
-        grid[choice.get(0)][choice.get(1)] = 0;
-        System.out.println("[" + choice.get(0) + ", " + choice.get(1) + "]");
+            int choiceRowIndex = new Random(System.currentTimeMillis()).nextInt(possibilities.size());
+            List<List<Integer>> choiceRow = possibilities.get(choiceRowIndex);
+            List<Integer> choice = choiceRow.get(new Random(System.currentTimeMillis()).nextInt(choiceRow.size()));
+            grid[choice.get(0)][choice.get(1)] = 0;
+            System.out.println("[" + choice.get(0) + ", " + choice.get(1) + "]");
 
-        int solutionsFound = SolveSudoku(new Sudoku(sudoku.type, Arrays.stream(sudoku.grid).map(int[]::clone).toArray(int[][]::new)), 0);
-        System.out.println("Solutions Found: " + solutionsFound);
-        if(solutionsFound == 1){
-            possibilities.get(choiceRowIndex).remove(choiceRow.indexOf(choice));
-            if(possibilities.get(choiceRowIndex).size() == 0){
-                possibilities.remove(choiceRowIndex);
+            int solutionsFound = SolveSudoku(new Sudoku(sudoku.getType(), Arrays.stream(sudoku.getGrid()).map(int[]::clone).toArray(int[][]::new)), 0);
+            System.out.println("Solutions Found: " + solutionsFound);
+            if (solutionsFound == 1) {
+                possibilities.get(choiceRowIndex).remove(choiceRow.indexOf(choice));
+                if (possibilities.get(choiceRowIndex).size() == 0) {
+                    possibilities.remove(choiceRowIndex);
+                }
+                int[][] result = Remove(new Sudoku(sudoku.getType(), grid), possibilities);
+
+                if (result == null) {
+                    return grid;
+                } else{
+                    return result;
+                }
             }
-            int[][] result = Remove(new Sudoku(sudoku.type, grid), possibilities);
-            return Objects.requireNonNullElse(result, grid);
         }
         return null;
     }
@@ -88,7 +98,7 @@ public class SudokuClassic {
 
     static int SolveSudoku(Sudoku sudoku, int solutionsFound){
         System.out.println("\n");
-        int[][] grid = Arrays.stream(sudoku.grid).map(int[]::clone).toArray(int[][]::new);
+        int[][] grid = Arrays.stream(sudoku.getGrid()).map(int[]::clone).toArray(int[][]::new);
 
         int[] nextEmpty = null;
         for(int row=0; row < grid.length; row++){
@@ -117,7 +127,7 @@ public class SudokuClassic {
                 continue;
             }
             //solutionsFound = SolveSudoku(sudoku, solutionsFound);
-            solutionsFound = SolveSudoku(new Sudoku(sudoku.type, grid), solutionsFound);
+            solutionsFound = SolveSudoku(new Sudoku(sudoku.getType(), grid), solutionsFound);
         }
 
         return solutionsFound;
