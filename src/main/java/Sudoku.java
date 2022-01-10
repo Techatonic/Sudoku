@@ -36,23 +36,23 @@ public class Sudoku {
     public void PrintSudoku() {
         for(int row=0; row < 9; row++){
             if(row % 3 == 0){
-                System.out.println(new String(new char[13]).replace("\0", "-"));
+                System.out.println(new String(new char[22]).replace("\0", "-"));
             }
             for(int col=0; col < 9; col++){
                 if(col % 3 == 0){
                     System.out.print("|");
                 }
                 if(grid[row][col] == 0){
-                    System.out.print(" ");
+                    System.out.print("  ");
                 } else{
-                    System.out.print(grid[row][col]);
+                    System.out.print(" " + grid[row][col]);
                 }
                 if(col == 8){
                     System.out.print("|\n");
                 }
             }
         }
-        System.out.println(new String(new char[13]).replace("\0", "-"));
+        System.out.println(new String(new char[22]).replace("\0", "-"));
         //System.out.println("\n");
     }
 

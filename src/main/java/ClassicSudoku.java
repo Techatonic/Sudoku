@@ -2,7 +2,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class SudokuClassic {
+public class ClassicSudoku {
 
     static int attemptsToDo = 5;
 
@@ -17,7 +17,7 @@ public class SudokuClassic {
         return new Sudoku(sudoku.getType(), RemoveCells(generatedGrid));
     }
 
-    private static int[][] RemoveCells(Sudoku sudoku) {
+    public static int[][] RemoveCells(Sudoku sudoku) {
         List<List<List<Integer>>> possibilities = new ArrayList<>();
         for(int x = 0; x < 9; x++){
             possibilities.add(new ArrayList<>());
@@ -25,10 +25,11 @@ public class SudokuClassic {
                 possibilities.get(x).add(new ArrayList<>(Arrays.asList(x, y)));
             }
         }
-        return Remove(sudoku, possibilities);
+        int[][] grid = Remove(sudoku, possibilities);
+        System.out.println("\n\nSolutions Found: " + SolveSudoku(new Sudoku(Sudoku.SudokuType.Classic, grid), 0));
+        return grid;
     }
     private static int[][] Remove(Sudoku sudoku, List<List<List<Integer>>> possibilities){
-        System.out.println("\n\n");
         int[][] grid;
 
         for (int attempt = 0; attempt < attemptsToDo; attempt++){
@@ -39,7 +40,7 @@ public class SudokuClassic {
             List<List<Integer>> choiceRow = possibilities.get(choiceRowIndex);
             List<Integer> choice = choiceRow.get(new Random(System.currentTimeMillis()).nextInt(choiceRow.size()));
             grid[choice.get(0)][choice.get(1)] = 0;
-            System.out.println("[" + choice.get(0) + ", " + choice.get(1) + "]");
+            System.out.println("[" + choice.get(0) + ", " + choice.get(1) + "]\n");
 
             int solutionsFound = SolveSudoku(new Sudoku(sudoku.getType(), Arrays.stream(sudoku.getGrid()).map(int[]::clone).toArray(int[][]::new)), 0);
             System.out.println("Solutions Found: " + solutionsFound);
@@ -51,7 +52,8 @@ public class SudokuClassic {
                 int[][] result = Remove(new Sudoku(sudoku.getType(), grid), possibilities);
 
                 if (result == null) {
-                    return grid;
+                    //return grid;
+                    return sudoku.getGrid();
                 } else{
                     return result;
                 }
@@ -70,7 +72,7 @@ public class SudokuClassic {
             new Sudoku(Sudoku.SudokuType.Classic, grid).PrintSudoku(); // Printing sudoku
             if(!ValidGrid(grid)){
                 possibilities.remove(Integer.valueOf(choice));
-                System.out.println("Not valid");
+                //System.out.println("Not valid");
                 continue;
             }
 
@@ -97,7 +99,6 @@ public class SudokuClassic {
 
 
     static int SolveSudoku(Sudoku sudoku, int solutionsFound){
-        System.out.println("\n");
         int[][] grid = Arrays.stream(sudoku.getGrid()).map(int[]::clone).toArray(int[][]::new);
 
         int[] nextEmpty = null;
@@ -121,7 +122,7 @@ public class SudokuClassic {
         for(int attempt=1; attempt < 10; attempt++){
             //sudoku.setPosition(nextEmpty[0], nextEmpty[1], attempt);
             grid[nextEmpty[0]][nextEmpty[1]] = attempt;
-            System.out.println("Attempting Value: " + attempt + " at [" + nextEmpty[0] + ", " + nextEmpty[1] + "]");
+            //System.out.println("Attempting Value: " + attempt + " at [" + nextEmpty[0] + ", " + nextEmpty[1] + "]");
             //if(!ValidGrid(sudoku.grid)){
             if(!ValidGrid(grid)){
                 continue;
@@ -139,7 +140,7 @@ public class SudokuClassic {
             int[] newRow = Arrays.stream(row).filter(x -> x != 0).toArray();
             Set<Integer> setRow = Arrays.stream(newRow).boxed().collect(Collectors.toSet());
             if(newRow.length != setRow.size()){
-                System.out.println("Invalid Grid #1");
+                //System.out.println("Invalid Grid #1");
                 return false;
             }
         }
@@ -152,7 +153,7 @@ public class SudokuClassic {
             int[] newCol = Arrays.stream(column).filter(x -> x != 0).toArray();
             Set<Integer> setCol = Arrays.stream(newCol).boxed().collect(Collectors.toSet());
             if(newCol.length != setCol.size()){
-                System.out.println("Invalid Grid #2");
+                //System.out.println("Invalid Grid #2");
                 return false;
             }
         }
@@ -168,7 +169,7 @@ public class SudokuClassic {
                 int[] newVals = Arrays.stream(values).filter(x -> x != 0).toArray();
                 Set<Integer> setVals = Arrays.stream(values).boxed().filter(x -> x != 0).collect(Collectors.toSet());
                 if(newVals.length != setVals.size()){
-                    System.out.println("Invalid Grid #3");
+                    //System.out.println("Invalid Grid #3");
                     return false;
                 }
             }
