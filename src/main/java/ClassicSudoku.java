@@ -4,7 +4,7 @@ import java.util.stream.IntStream;
 
 public class ClassicSudoku {
 
-    static int attemptsToDo = 5;
+    static int attemptsToDo = 25;
 
     public static ClassicSudokuType GenerateSudoku(ClassicSudokuType sudoku){
         Pair<Boolean, List<List<Integer>>> result = Generate(sudoku.getGrid(), new int[]{0, 0});

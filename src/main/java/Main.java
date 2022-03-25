@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -14,12 +16,12 @@ public class Main {
                 {9, 1, 5, 3, 4, 8, 7, 2, 6} // Row 9
         };
 
-
+        /*
         ClassicSudokuType sudoku = new ClassicSudokuType(ClassicSudokuType.SudokuType.Classic);
         ClassicSudokuType unfilledSudoku = ClassicSudoku.GenerateSudoku(sudoku);
         unfilledSudoku.PrintSudoku();
         unfilledSudoku.PrintSudokuStats();
-
+        */
 
         /*
         Sudoku sudoku = new Sudoku(Sudoku.SudokuType.Classic, test);
@@ -31,6 +33,13 @@ public class Main {
         newSudoku.PrintSudoku();
         newSudoku.PrintSudokuStats();
          */
+
+        ArrowSudokuType emptySudoku = new ArrowSudokuType(ClassicSudokuType.SudokuType.Arrow);
+        ArrowSudokuType generatedSudoku = ArrowSudoku.GenerateSudoku(emptySudoku);
+        generatedSudoku.PrintSudoku(generatedSudoku.getFilledGrid());
+        System.out.println("");
+        generatedSudoku.PrintSudoku();
+        generatedSudoku.PrintSudokuStats();
     }
 
 }

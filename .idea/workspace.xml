@@ -4,12 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ac6ce1b-eafc-4f9a-a23f-f9113f0e2687" name="Changes" comment="Improved Classic Sudoku Generator&#10;- A higher proportion of sudokus generated have fewer digits given&#10;- Bug found: some sudokus generated have multiple valid solutions">
+    <list default="true" id="4ac6ce1b-eafc-4f9a-a23f-f9113f0e2687" name="Changes" comment="Something here&#10;- Added new sudoku constructor overload">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ClassicSudoku.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ClassicSudoku.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ArrowSudoku.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ArrowSudoku.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ArrowSudokuType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ArrowSudokuType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Pair.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pair.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Sudoku.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ClassicSudokuType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Sudoku-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/Sudoku-1.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ArrowSudoku.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ArrowSudoku.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ArrowSudokuType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ArrowSudokuType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ClassicSudoku.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ClassicSudoku.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ClassicSudokuType$SudokuType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ClassicSudokuType$SudokuType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ClassicSudokuType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ClassicSudokuType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Pair.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Pair.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -9,6 +9,7 @@ public class ClassicSudokuType {
 
     private SudokuType type;
     private int[][] grid;
+    private int[][] filledGrid;
 
     public ClassicSudokuType(SudokuType type, int[][] grid){
         this.type = type;
@@ -26,6 +27,12 @@ public class ClassicSudokuType {
         this.type = sudoku.type;
         this.grid = sudoku.grid;
     }
+    public ClassicSudokuType(ClassicSudokuType.SudokuType type, int[][] unfilledGrid, int[][] filledGrid) {
+        this.type = type;
+        this.grid = unfilledGrid;
+        this.filledGrid = filledGrid;
+    }
+
 
     public SudokuType getType() {
         return type;
@@ -34,12 +41,19 @@ public class ClassicSudokuType {
     public int[][] getGrid() {
         return grid;
     }
+    public int[][] getFilledGrid(){
+        return filledGrid;
+    }
 
     public void setPosition(int row, int col, int val){
         grid[row][col] = val;
     }
 
     public void PrintSudoku() {
+        PrintSudoku(this.grid);
+    }
+
+    public void PrintSudoku(int[][] grid){
         for(int row=0; row < 9; row++){
             if(row % 3 == 0){
                 System.out.println(new String(new char[22]).replace("\0", "-"));
@@ -63,6 +77,9 @@ public class ClassicSudokuType {
     }
 
     public void PrintSudokuStats(){
+        PrintSudokuStats(this.grid);
+    }
+    public void PrintSudokuStats(int[][] grid){
         int cellsGiven = 0;
 
         for(int[] row : grid){

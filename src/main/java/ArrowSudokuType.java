@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class ArrowSudokuType extends ClassicSudokuType{
 
@@ -43,13 +41,42 @@ public class ArrowSudokuType extends ClassicSudokuType{
     }
 
 
+    public ArrowSudokuType(ClassicSudokuType.SudokuType type, int[][] unfilledGrid, int[][] filledGrid, 
+            ArrayList<Pair<Pair<Integer, Integer>, ArrayList<Pair<Integer, Integer>>>> arrows) {
+        super(type, unfilledGrid, filledGrid);
+        this.arrows = arrows;
+    }
+
     public ArrayList<Pair<Pair<Integer, Integer>, ArrayList<Pair<Integer, Integer>>>> getArrows(){
         return arrows;
     }
 
+    public void PrintSudoku() {
+        for(int row=0; row < 9; row++){
+            if(row % 3 == 0){
+                System.out.println(new String(new char[22]).replace("\0", "-"));
+            }
+            for(int col=0; col < 9; col++){
+                if(col % 3 == 0){
+                    System.out.print("|");
+                }
+                if(this.getGrid()[row][col] == 0){
+                    System.out.print("  ");
+                } else{
+                    System.out.print(" " + this.getGrid()[row][col]);
+                }
+                if(col == 8){
+                    System.out.print("|\n");
+                }
+            }
+        }
+        System.out.println(new String(new char[22]).replace("\0", "-"));
+        //System.out.println("\n");
+    }
 
     public void PrintSudokuStats(){
-        super.PrintSudokuStats();
+        super.PrintSudokuStats(this.getGrid());
+        //super.PrintSudokuStats();
         if(this.arrows == null){
             System.out.println("Arrows: null");
             return;
@@ -62,7 +89,7 @@ public class ArrowSudokuType extends ClassicSudokuType{
 
             ArrayList<Pair<Integer, Integer>> points = arrow.getSecond();
             for (Pair<Integer, Integer> point : points) {
-                System.out.print(point.toString() + "  ");
+                System.out.print(point.toString() + "   ");
             }
             System.out.print("\n");
         }
