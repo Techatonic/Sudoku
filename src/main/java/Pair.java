@@ -7,6 +7,10 @@ public class Pair<A, B> {
         this.first = first;
         this.second = second;
     }
+    public Pair(Pair<A, B> pair){
+        this.first = pair.getFirst();
+        this.second = pair.getSecond();
+    }
 
     public A getFirst() {
         return first;

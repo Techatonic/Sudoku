@@ -15,8 +15,8 @@ public class Main {
         };
 
 
-        Sudoku sudoku = new Sudoku(Sudoku.SudokuType.Classic);
-        Sudoku unfilledSudoku = ClassicSudoku.GenerateSudoku(sudoku);
+        ClassicSudokuType sudoku = new ClassicSudokuType(ClassicSudokuType.SudokuType.Classic);
+        ClassicSudokuType unfilledSudoku = ClassicSudoku.GenerateSudoku(sudoku);
         unfilledSudoku.PrintSudoku();
         unfilledSudoku.PrintSudokuStats();
 

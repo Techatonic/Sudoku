@@ -1,4 +1,6 @@
-public class Sudoku {
+public class ClassicSudokuType {
+
+
     public enum SudokuType{
         Classic,
         Arrow
@@ -8,15 +10,19 @@ public class Sudoku {
     private SudokuType type;
     private int[][] grid;
 
-    public Sudoku(SudokuType type, int[][] grid){
+    public ClassicSudokuType(SudokuType type, int[][] grid){
         this.type = type;
         this.grid = grid;
     }
-    public Sudoku(SudokuType type){
+    public ClassicSudokuType(int[][] grid) {
+        this.type = SudokuType.Classic;
+        this.grid = grid;
+    }
+    public ClassicSudokuType(SudokuType type){
         this.type = type;
         this.grid = new int[9][9];
     }
-    public Sudoku(Sudoku sudoku){
+    public ClassicSudokuType(ClassicSudokuType sudoku){
         this.type = sudoku.type;
         this.grid = sudoku.grid;
     }

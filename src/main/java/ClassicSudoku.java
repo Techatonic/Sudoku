@@ -6,18 +6,18 @@ public class ClassicSudoku {
 
     static int attemptsToDo = 5;
 
-    public static Sudoku GenerateSudoku(Sudoku sudoku){
+    public static ClassicSudokuType GenerateSudoku(ClassicSudokuType sudoku){
         Pair<Boolean, List<List<Integer>>> result = Generate(sudoku.getGrid(), new int[]{0, 0});
         int[][] grid = new int[9][9];
         for(int row = 0; row < 9; row++){
             grid[row] = result.getSecond().get(row).stream().mapToInt(i->i).toArray();
         }
-        Sudoku generatedGrid = new Sudoku(sudoku.getType(), grid);
+        ClassicSudokuType generatedGrid = new ClassicSudokuType(sudoku.getType(), grid);
 
-        return new Sudoku(sudoku.getType(), RemoveCells(generatedGrid));
+        return new ClassicSudokuType(sudoku.getType(), RemoveCells(generatedGrid));
     }
 
-    public static int[][] RemoveCells(Sudoku sudoku) {
+    public static int[][] RemoveCells(ClassicSudokuType sudoku) {
         List<List<List<Integer>>> possibilities = new ArrayList<>();
         for(int x = 0; x < 9; x++){
             possibilities.add(new ArrayList<>());
@@ -26,10 +26,10 @@ public class ClassicSudoku {
             }
         }
         int[][] grid = Remove(sudoku, possibilities);
-        System.out.println("\n\nSolutions Found: " + SolveSudoku(new Sudoku(Sudoku.SudokuType.Classic, grid), 0));
+        System.out.println("\n\nSolutions Found: " + SolveSudoku(new ClassicSudokuType(ClassicSudokuType.SudokuType.Classic, grid), 0));
         return grid;
     }
-    private static int[][] Remove(Sudoku sudoku, List<List<List<Integer>>> possibilities){
+    private static int[][] Remove(ClassicSudokuType sudoku, List<List<List<Integer>>> possibilities){
         int[][] grid;
 
         for (int attempt = 0; attempt < attemptsToDo; attempt++){
@@ -42,14 +42,14 @@ public class ClassicSudoku {
             grid[choice.get(0)][choice.get(1)] = 0;
             System.out.println("[" + choice.get(0) + ", " + choice.get(1) + "]\n");
 
-            int solutionsFound = SolveSudoku(new Sudoku(sudoku.getType(), Arrays.stream(sudoku.getGrid()).map(int[]::clone).toArray(int[][]::new)), 0);
+            int solutionsFound = SolveSudoku(new ClassicSudokuType(sudoku.getType(), Arrays.stream(sudoku.getGrid()).map(int[]::clone).toArray(int[][]::new)), 0);
             System.out.println("Solutions Found: " + solutionsFound);
             if (solutionsFound == 1) {
                 possibilities.get(choiceRowIndex).remove(choiceRow.indexOf(choice));
                 if (possibilities.get(choiceRowIndex).size() == 0) {
                     possibilities.remove(choiceRowIndex);
                 }
-                int[][] result = Remove(new Sudoku(sudoku.getType(), grid), possibilities);
+                int[][] result = Remove(new ClassicSudokuType(sudoku.getType(), grid), possibilities);
 
                 if (result == null) {
                     //return grid;
@@ -69,7 +69,7 @@ public class ClassicSudoku {
         while(possibilities.size() > 0){
             int choice = possibilities.get(new Random(System.currentTimeMillis()).nextInt(possibilities.size()));
             grid[currPosition[0]][currPosition[1]] = choice;
-            new Sudoku(Sudoku.SudokuType.Classic, grid).PrintSudoku(); // Printing sudoku
+            new ClassicSudokuType(ClassicSudokuType.SudokuType.Classic, grid).PrintSudoku(); // Printing sudoku
             if(!ValidGrid(grid)){
                 possibilities.remove(Integer.valueOf(choice));
                 //System.out.println("Not valid");
@@ -98,7 +98,7 @@ public class ClassicSudoku {
 
 
 
-    static int SolveSudoku(Sudoku sudoku, int solutionsFound){
+    static int SolveSudoku(ClassicSudokuType sudoku, int solutionsFound){
         int[][] grid = Arrays.stream(sudoku.getGrid()).map(int[]::clone).toArray(int[][]::new);
 
         int[] nextEmpty = null;
@@ -128,7 +128,7 @@ public class ClassicSudoku {
                 continue;
             }
             //solutionsFound = SolveSudoku(sudoku, solutionsFound);
-            solutionsFound = SolveSudoku(new Sudoku(sudoku.getType(), grid), solutionsFound);
+            solutionsFound = SolveSudoku(new ClassicSudokuType(sudoku.getType(), grid), solutionsFound);
         }
 
         return solutionsFound;
