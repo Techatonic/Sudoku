@@ -26,7 +26,7 @@ public class ClassicSudoku {
             }
         }
         int[][] grid = Remove(sudoku, possibilities);
-        System.out.println("\n\nSolutions Found: " + SolveSudoku(new ClassicSudokuType(ClassicSudokuType.SudokuType.Classic, grid), 0));
+        //System.out.println("\n\nSolutions Found: " + SolveSudoku(new ClassicSudokuType(ClassicSudokuType.SudokuType.Classic, grid), 0));
         return grid;
     }
     private static int[][] Remove(ClassicSudokuType sudoku, List<List<List<Integer>>> possibilities){
@@ -40,10 +40,9 @@ public class ClassicSudoku {
             List<List<Integer>> choiceRow = possibilities.get(choiceRowIndex);
             List<Integer> choice = choiceRow.get(new Random(System.currentTimeMillis()).nextInt(choiceRow.size()));
             grid[choice.get(0)][choice.get(1)] = 0;
-            System.out.println("[" + choice.get(0) + ", " + choice.get(1) + "]\n");
+            //System.out.println("[" + choice.get(0) + ", " + choice.get(1) + "]\n");
 
             int solutionsFound = SolveSudoku(new ClassicSudokuType(sudoku.getType(), Arrays.stream(sudoku.getGrid()).map(int[]::clone).toArray(int[][]::new)), 0);
-            System.out.println("Solutions Found: " + solutionsFound);
             if (solutionsFound == 1) {
                 possibilities.get(choiceRowIndex).remove(choiceRow.indexOf(choice));
                 if (possibilities.get(choiceRowIndex).size() == 0) {
@@ -52,7 +51,6 @@ public class ClassicSudoku {
                 int[][] result = Remove(new ClassicSudokuType(sudoku.getType(), grid), possibilities);
 
                 if (result == null) {
-                    //return grid;
                     return sudoku.getGrid();
                 } else{
                     return result;
@@ -69,10 +67,9 @@ public class ClassicSudoku {
         while(possibilities.size() > 0){
             int choice = possibilities.get(new Random(System.currentTimeMillis()).nextInt(possibilities.size()));
             grid[currPosition[0]][currPosition[1]] = choice;
-            new ClassicSudokuType(ClassicSudokuType.SudokuType.Classic, grid).PrintSudoku(); // Printing sudoku
+            //new ClassicSudokuType(ClassicSudokuType.SudokuType.Classic, grid).PrintSudoku(); // Printing sudoku
             if(!ValidGrid(grid)){
                 possibilities.remove(Integer.valueOf(choice));
-                //System.out.println("Not valid");
                 continue;
             }
 
@@ -120,14 +117,10 @@ public class ClassicSudoku {
         }
 
         for(int attempt=1; attempt < 10; attempt++){
-            //sudoku.setPosition(nextEmpty[0], nextEmpty[1], attempt);
             grid[nextEmpty[0]][nextEmpty[1]] = attempt;
-            //System.out.println("Attempting Value: " + attempt + " at [" + nextEmpty[0] + ", " + nextEmpty[1] + "]");
-            //if(!ValidGrid(sudoku.grid)){
             if(!ValidGrid(grid)){
                 continue;
             }
-            //solutionsFound = SolveSudoku(sudoku, solutionsFound);
             solutionsFound = SolveSudoku(new ClassicSudokuType(sudoku.getType(), grid), solutionsFound);
         }
 
@@ -140,7 +133,6 @@ public class ClassicSudoku {
             int[] newRow = Arrays.stream(row).filter(x -> x != 0).toArray();
             Set<Integer> setRow = Arrays.stream(newRow).boxed().collect(Collectors.toSet());
             if(newRow.length != setRow.size()){
-                //System.out.println("Invalid Grid #1");
                 return false;
             }
         }
@@ -153,7 +145,6 @@ public class ClassicSudoku {
             int[] newCol = Arrays.stream(column).filter(x -> x != 0).toArray();
             Set<Integer> setCol = Arrays.stream(newCol).boxed().collect(Collectors.toSet());
             if(newCol.length != setCol.size()){
-                //System.out.println("Invalid Grid #2");
                 return false;
             }
         }
@@ -169,7 +160,6 @@ public class ClassicSudoku {
                 int[] newVals = Arrays.stream(values).filter(x -> x != 0).toArray();
                 Set<Integer> setVals = Arrays.stream(values).boxed().filter(x -> x != 0).collect(Collectors.toSet());
                 if(newVals.length != setVals.size()){
-                    //System.out.println("Invalid Grid #3");
                     return false;
                 }
             }

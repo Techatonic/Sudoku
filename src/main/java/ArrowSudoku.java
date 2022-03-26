@@ -42,8 +42,6 @@ public class ArrowSudoku extends ClassicSudoku {
             ArrayList<Pair<Integer, Integer>> possibilities = new ArrayList<>();
 
             while (true) {
-                System.out.println("\n");
-                System.out.println(mostRecentPoint);
                 possibilities.clear();
                 for (int dx = -1; dx <= 1; dx++) {
                     for (int dy = -1; dy <= 1; dy++) {
@@ -87,8 +85,6 @@ public class ArrowSudoku extends ClassicSudoku {
             if(points.size() == 1){
                 continue;
             }
-            System.out.println("Adding arrow");
-            System.out.println(points);
             arrows.add(new Pair<>(bulbPosition, points));
             break;
         }
@@ -132,7 +128,6 @@ public class ArrowSudoku extends ClassicSudoku {
             //System.out.println("[" + choice.get(0) + ", " + choice.get(1) + "]\n");
 
             int solutionsFound = SolveSudoku(new ArrowSudokuType(sudoku.getType(), Arrays.stream(grid).map(int[]::clone).toArray(int[][]::new), sudoku.getArrows()), 0);
-            //System.out.println("Solutions Found: " + solutionsFound);
             if (solutionsFound == 1) {
                 possibilities.get(choiceRowIndex).remove(choiceRow.indexOf(choice));
                 if (possibilities.get(choiceRowIndex).size() == 0) {
@@ -147,7 +142,6 @@ public class ArrowSudoku extends ClassicSudoku {
                 }
             }
         }
-        //System.out.println("null");
         return null;
     }
 
@@ -189,9 +183,6 @@ public class ArrowSudoku extends ClassicSudoku {
         if(!ClassicSudoku.ValidGrid(sudoku.getGrid())){
             return false;
         }
-        System.out.println("\nValid Grid: ");
-        sudoku.PrintSudoku();
-        //System.out.println(sudoku.getArrows().size());
         for(Pair<Pair<Integer, Integer>, ArrayList<Pair<Integer, Integer>>> arrow : sudoku.getArrows()){
             int bulbVal = sudoku.getGrid()[arrow.getFirst().getFirst()][arrow.getFirst().getSecond()];
             int sumVal = arrow.getSecond().stream().mapToInt(x -> sudoku.getGrid()[x.getFirst()][x.getSecond()]).sum();

@@ -34,7 +34,9 @@ public class Main {
         newSudoku.PrintSudokuStats();
          */
         
-        int maxNumOfGiven = 80;
+        final long startTime = System.currentTimeMillis();
+
+        int maxNumOfGiven = 30;
         
         ArrowSudokuType emptySudoku = new ArrowSudokuType(ClassicSudokuType.SudokuType.Arrow);
         ArrowSudokuType generatedSudoku = emptySudoku;
@@ -42,12 +44,16 @@ public class Main {
         while(given > maxNumOfGiven){    
             generatedSudoku = ArrowSudoku.GenerateSudoku(emptySudoku);
             given = generatedSudoku.GetCellsGiven();
-            break; // Remove this
+            //break; // Remove this
         }
         generatedSudoku.PrintSudoku(generatedSudoku.getFilledGrid());
         System.out.println("");
         generatedSudoku.PrintSudoku();
         generatedSudoku.PrintSudokuStats();
-    }
 
+        final long endTime = System.currentTimeMillis();
+        final double totalTime = (double)(endTime - startTime)/1000;
+        System.out.println("\nTotal execution time: " + totalTime + " seconds");
+
+    }
 }
