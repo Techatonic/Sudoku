@@ -80,6 +80,9 @@ public class ClassicSudokuType {
         PrintSudokuStats(this.grid);
     }
     public void PrintSudokuStats(int[][] grid){
+        System.out.println("Number of cells given: " + GetCellsGiven());
+    }
+    public int GetCellsGiven(){
         int cellsGiven = 0;
 
         for(int[] row : grid){
@@ -89,7 +92,6 @@ public class ClassicSudokuType {
                 }
             }
         }
-
-        System.out.println("Number of cells given: " + cellsGiven);
+        return cellsGiven;
     }
 }

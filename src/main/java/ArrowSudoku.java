@@ -1,12 +1,11 @@
-// Don't allow arrows with the bulb and point on itself
-
 import java.util.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ArrowSudoku extends ClassicSudoku {
 
-    static int numArrows = 10;
-    static int attemptsToDo = 50;
+    static int numArrows = 5;
+    static int attemptsToDo = 3;
 
     public static ArrowSudokuType GenerateSudoku(ArrowSudokuType sudoku){
         Pair<Boolean, List<List<Integer>>> result = Generate(sudoku.getGrid(), new int[]{0, 0});
@@ -58,8 +57,6 @@ public class ArrowSudoku extends ClassicSudoku {
                 if(possibilities.size() == 0){
                     break;
                 }
-                System.out.println(possibilities);
-                System.out.println("\n");
                 int randomIndex = new Random().nextInt(possibilities.size());
                 Pair<Integer, Integer> point = possibilities.get(randomIndex);
                 boolean foundEqual = false;
@@ -79,9 +76,7 @@ public class ArrowSudoku extends ClassicSudoku {
                 }
                 cumSumValue += val;
                 points.add(point);
-                //System.out.println(point);
                 mostRecentPoint = new Pair<Integer, Integer>(point);
-                //System.out.println(mostRecentPoint);
                 if (cumSumValue == totalValue) {
                     break;
                 }
@@ -194,14 +189,35 @@ public class ArrowSudoku extends ClassicSudoku {
         if(!ClassicSudoku.ValidGrid(sudoku.getGrid())){
             return false;
         }
+        System.out.println("\nValid Grid: ");
+        sudoku.PrintSudoku();
         //System.out.println(sudoku.getArrows().size());
         for(Pair<Pair<Integer, Integer>, ArrayList<Pair<Integer, Integer>>> arrow : sudoku.getArrows()){
             int bulbVal = sudoku.getGrid()[arrow.getFirst().getFirst()][arrow.getFirst().getSecond()];
             int sumVal = arrow.getSecond().stream().mapToInt(x -> sudoku.getGrid()[x.getFirst()][x.getSecond()]).sum();
 
-            if(bulbVal != sumVal){
-                return false;
+            // Check for zeros in sumVal
+            List<Pair<Integer, Integer>> newSum = arrow.getSecond().stream().filter(x -> sudoku.getGrid()[x.getFirst()][x.getSecond()]!=0).collect(Collectors.toList());
+            List<Integer> sumVals = newSum.stream().map(x -> sudoku.getGrid()[x.getFirst()][x.getSecond()]).collect(Collectors.toList());
+            //
+
+            if(bulbVal == 0){
+                if(sumVal > 9){
+                    return false;
+                }
+                if(sumVal + arrow.getSecond().size() - sumVals.size() > 9){
+                    return false;
+                }
+            }else{
+                if(sumVal > bulbVal){
+                    return false;
+                }
+                if(arrow.getSecond().size() == sumVals.size() && sumVal != bulbVal){
+                    return false;
+                }
             }
+
+
         }
         return true;
     }

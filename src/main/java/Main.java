@@ -33,9 +33,17 @@ public class Main {
         newSudoku.PrintSudoku();
         newSudoku.PrintSudokuStats();
          */
-
+        
+        int maxNumOfGiven = 80;
+        
         ArrowSudokuType emptySudoku = new ArrowSudokuType(ClassicSudokuType.SudokuType.Arrow);
-        ArrowSudokuType generatedSudoku = ArrowSudoku.GenerateSudoku(emptySudoku);
+        ArrowSudokuType generatedSudoku = emptySudoku;
+        int given = 81;
+        while(given > maxNumOfGiven){    
+            generatedSudoku = ArrowSudoku.GenerateSudoku(emptySudoku);
+            given = generatedSudoku.GetCellsGiven();
+            break; // Remove this
+        }
         generatedSudoku.PrintSudoku(generatedSudoku.getFilledGrid());
         System.out.println("");
         generatedSudoku.PrintSudoku();
