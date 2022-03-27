@@ -1,9 +1,11 @@
-import java.util.Arrays;
-
+import arrow.ArrowSudoku;
+import classic.ClassicSudokuType;
+import arrow.ArrowSudokuType;
 public class Main {
 
     public static void main(String[] args) {
         // Test Classic Sudoku
+        /*
         int[][] test = new int[][]{
                 {7, 6, 8, 4, 1, 3, 5, 9, 2}, // Row 1
                 {4, 3, 1, 2, 9, 5, 8, 6, 7},
@@ -15,10 +17,11 @@ public class Main {
                 {6, 8, 3, 1, 7, 2, 9, 5, 4},
                 {9, 1, 5, 3, 4, 8, 7, 2, 6} // Row 9
         };
+        */
 
         /*
-        ClassicSudokuType sudoku = new ClassicSudokuType(ClassicSudokuType.SudokuType.Classic);
-        ClassicSudokuType unfilledSudoku = ClassicSudoku.GenerateSudoku(sudoku);
+        classic.ClassicSudokuType sudoku = new classic.ClassicSudokuType(classic.ClassicSudokuType.SudokuType.Classic);
+        classic.ClassicSudokuType unfilledSudoku = classic.ClassicSudoku.GenerateSudoku(sudoku);
         unfilledSudoku.PrintSudoku();
         unfilledSudoku.PrintSudokuStats();
         */
@@ -40,14 +43,13 @@ public class Main {
         
         ArrowSudokuType emptySudoku = new ArrowSudokuType(ClassicSudokuType.SudokuType.Arrow);
         ArrowSudokuType generatedSudoku = emptySudoku;
-        int given = 81;
+        int given = 35;
         while(given > maxNumOfGiven){    
             generatedSudoku = ArrowSudoku.GenerateSudoku(emptySudoku);
             given = generatedSudoku.GetCellsGiven();
-            //break; // Remove this
         }
         generatedSudoku.PrintSudoku(generatedSudoku.getFilledGrid());
-        System.out.println("");
+        System.out.println("\n");
         generatedSudoku.PrintSudoku();
         generatedSudoku.PrintSudokuStats();
 

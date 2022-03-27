@@ -1,3 +1,7 @@
+package classic;
+
+import helper.Pair;
+
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -26,7 +30,7 @@ public class ClassicSudoku {
             }
         }
         int[][] grid = Remove(sudoku, possibilities);
-        //System.out.println("\n\nSolutions Found: " + SolveSudoku(new ClassicSudokuType(ClassicSudokuType.SudokuType.Classic, grid), 0));
+        //System.out.println("\n\nSolutions Found: " + SolveSudoku(new classic.ClassicSudokuType(classic.ClassicSudokuType.SudokuType.Classic, grid), 0));
         return grid;
     }
     private static int[][] Remove(ClassicSudokuType sudoku, List<List<List<Integer>>> possibilities){
@@ -67,7 +71,7 @@ public class ClassicSudoku {
         while(possibilities.size() > 0){
             int choice = possibilities.get(new Random(System.currentTimeMillis()).nextInt(possibilities.size()));
             grid[currPosition[0]][currPosition[1]] = choice;
-            //new ClassicSudokuType(ClassicSudokuType.SudokuType.Classic, grid).PrintSudoku(); // Printing sudoku
+            //new classic.ClassicSudokuType(classic.ClassicSudokuType.SudokuType.Classic, grid).PrintSudoku(); // Printing sudoku
             if(!ValidGrid(grid)){
                 possibilities.remove(Integer.valueOf(choice));
                 continue;
@@ -127,7 +131,7 @@ public class ClassicSudoku {
         return solutionsFound;
     }
 
-    static boolean ValidGrid(int[][] grid){
+    protected static boolean ValidGrid(int[][] grid){
         // Checks valid rows
         for(int[] row : grid){
             int[] newRow = Arrays.stream(row).filter(x -> x != 0).toArray();

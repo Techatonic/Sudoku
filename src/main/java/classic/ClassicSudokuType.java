@@ -1,3 +1,5 @@
+package classic;
+
 public class ClassicSudokuType {
 
 

@@ -1,3 +1,5 @@
+package helper;
+
 public class Pair<A, B> {
 
     private final A first;
@@ -30,10 +32,9 @@ public class Pair<A, B> {
         if(o == this){
             return true;
         }
-        if(!(o instanceof Pair)){
+        if(!(o instanceof Pair<?, ?> other)){
             return false;
         }
-        Pair<?, ?> other = (Pair<?, ?>) o;
         return this.getFirst().equals(other.getFirst()) && this.getSecond().equals(other.getSecond());
     }
 }
