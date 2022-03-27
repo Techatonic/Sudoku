@@ -1,6 +1,9 @@
 import arrow.ArrowSudoku;
 import classic.ClassicSudokuType;
 import arrow.ArrowSudokuType;
+import thermo.ThermoSudoku;
+import thermo.ThermoSudokuType;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -36,7 +39,7 @@ public class Main {
         newSudoku.PrintSudoku();
         newSudoku.PrintSudokuStats();
          */
-        
+        /*
         final long startTime = System.currentTimeMillis();
 
         int maxNumOfGiven = 30;
@@ -46,6 +49,27 @@ public class Main {
         int given = 35;
         while(given > maxNumOfGiven){    
             generatedSudoku = ArrowSudoku.GenerateSudoku(emptySudoku);
+            given = generatedSudoku.GetCellsGiven();
+        }
+        generatedSudoku.PrintSudoku(generatedSudoku.getFilledGrid());
+        System.out.println("\n");
+        generatedSudoku.PrintSudoku();
+        generatedSudoku.PrintSudokuStats();
+
+        final long endTime = System.currentTimeMillis();
+        final double totalTime = (double)(endTime - startTime)/1000;
+        System.out.println("\nTotal execution time: " + totalTime + " seconds");
+         */
+
+        final long startTime = System.currentTimeMillis();
+
+        int maxNumOfGiven = 80;
+
+        ThermoSudokuType emptySudoku = new ThermoSudokuType(ClassicSudokuType.SudokuType.Thermo);
+        ThermoSudokuType generatedSudoku = emptySudoku;
+        int given = 81;
+        while(given > maxNumOfGiven){
+            generatedSudoku = ThermoSudoku.GenerateSudoku(emptySudoku);
             given = generatedSudoku.GetCellsGiven();
         }
         generatedSudoku.PrintSudoku(generatedSudoku.getFilledGrid());

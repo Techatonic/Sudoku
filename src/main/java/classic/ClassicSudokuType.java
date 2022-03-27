@@ -5,7 +5,8 @@ public class ClassicSudokuType {
 
     public enum SudokuType{
         Classic,
-        Arrow
+        Arrow,
+        Thermo
     }
 
 
