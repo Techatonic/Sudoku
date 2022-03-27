@@ -1,2 +1,5 @@
 Main.class
-Pair.class
+classic/ClassicSudokuType$SudokuType.class
+classic/ClassicSudokuType.class
+helper/Pair.class
+classic/ClassicSudoku.class
