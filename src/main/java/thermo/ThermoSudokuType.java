@@ -12,8 +12,8 @@ public class ThermoSudokuType extends ClassicSudokuType{
         super(type, grid);
     }
 
-    public ThermoSudokuType(ClassicSudokuType.SudokuType type) {
-        super(type);
+    public ThermoSudokuType() {
+        super(SudokuType.Thermo);
     }
 
     public ThermoSudokuType(ClassicSudokuType sudoku) {

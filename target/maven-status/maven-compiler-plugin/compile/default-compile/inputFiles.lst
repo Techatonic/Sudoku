@@ -1,6 +1,10 @@
-/home/danny/IdeaProjects/Sudoku/src/main/java/Pair.java
+/home/danny/IdeaProjects/Sudoku/src/main/java/killer/KillerSudokuType.java
+/home/danny/IdeaProjects/Sudoku/src/main/java/classic/ClassicSudokuType.java
+/home/danny/IdeaProjects/Sudoku/src/main/java/killer/KillerSudoku.java
 /home/danny/IdeaProjects/Sudoku/src/main/java/Main.java
-/home/danny/IdeaProjects/Sudoku/src/main/java/ClassicSudokuType.java
-/home/danny/IdeaProjects/Sudoku/src/main/java/ArrowSudokuType.java
-/home/danny/IdeaProjects/Sudoku/src/main/java/ArrowSudoku.java
-/home/danny/IdeaProjects/Sudoku/src/main/java/ClassicSudoku.java
+/home/danny/IdeaProjects/Sudoku/src/main/java/classic/ClassicSudoku.java
+/home/danny/IdeaProjects/Sudoku/src/main/java/thermo/ThermoSudoku.java
+/home/danny/IdeaProjects/Sudoku/src/main/java/arrow/ArrowSudoku.java
+/home/danny/IdeaProjects/Sudoku/src/main/java/arrow/ArrowSudokuType.java
+/home/danny/IdeaProjects/Sudoku/src/main/java/helper/Pair.java
+/home/danny/IdeaProjects/Sudoku/src/main/java/thermo/ThermoSudokuType.java

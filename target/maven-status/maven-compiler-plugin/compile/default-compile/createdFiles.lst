@@ -1,5 +1,9 @@
+killer/KillerSudoku.class
+classic/ClassicSudoku.class
 Main.class
 classic/ClassicSudokuType$SudokuType.class
+killer/KillerSudokuType.class
 classic/ClassicSudokuType.class
+thermo/ThermoSudokuType.class
 helper/Pair.class
-classic/ClassicSudoku.class
+thermo/ThermoSudoku.class

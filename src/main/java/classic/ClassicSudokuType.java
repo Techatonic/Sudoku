@@ -6,7 +6,8 @@ public class ClassicSudokuType {
     public enum SudokuType{
         Classic,
         Arrow,
-        Thermo
+        Thermo,
+        Killer
     }
 
 
@@ -14,6 +15,10 @@ public class ClassicSudokuType {
     private int[][] grid;
     private int[][] filledGrid;
 
+    public ClassicSudokuType(){
+        this.type = SudokuType.Classic;
+        this.grid = new int[9][9];
+    }
     public ClassicSudokuType(SudokuType type, int[][] grid){
         this.type = type;
         this.grid = grid;
@@ -29,6 +34,7 @@ public class ClassicSudokuType {
     public ClassicSudokuType(ClassicSudokuType sudoku){
         this.type = sudoku.type;
         this.grid = sudoku.grid;
+        this.filledGrid = sudoku.filledGrid;
     }
     public ClassicSudokuType(ClassicSudokuType.SudokuType type, int[][] unfilledGrid, int[][] filledGrid) {
         this.type = type;

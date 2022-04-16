@@ -1,5 +1,7 @@
 package helper;
 
+import java.util.Objects;
+
 public class Pair<A, B> {
 
     private final A first;
@@ -35,6 +37,10 @@ public class Pair<A, B> {
         if(!(o instanceof Pair<?, ?> other)){
             return false;
         }
-        return this.getFirst().equals(other.getFirst()) && this.getSecond().equals(other.getSecond());
+        return this.first.equals(other.getFirst()) && this.second.equals(other.getSecond());
+    }
+    @Override
+    public int hashCode(){
+        return Objects.hash(this.first, this.second);
     }
 }

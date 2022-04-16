@@ -13,8 +13,8 @@ public class ArrowSudokuType extends ClassicSudokuType{
         super(type, grid);
     }
 
-    public ArrowSudokuType(SudokuType type) {
-        super(type);
+    public ArrowSudokuType() {
+        super(SudokuType.Arrow);
     }
 
     public ArrowSudokuType(ClassicSudokuType sudoku) {

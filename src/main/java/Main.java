@@ -3,6 +3,8 @@ import classic.ClassicSudokuType;
 import arrow.ArrowSudokuType;
 import thermo.ThermoSudoku;
 import thermo.ThermoSudokuType;
+import killer.KillerSudoku;
+import killer.KillerSudokuType;
 
 public class Main {
 
@@ -42,7 +44,7 @@ public class Main {
         /*
         final long startTime = System.currentTimeMillis();
 
-        int maxNumOfGiven = 30;
+        int maxNumOfGiven = 20;
         
         ArrowSudokuType emptySudoku = new ArrowSudokuType(ClassicSudokuType.SudokuType.Arrow);
         ArrowSudokuType generatedSudoku = emptySudoku;
@@ -59,8 +61,10 @@ public class Main {
         final long endTime = System.currentTimeMillis();
         final double totalTime = (double)(endTime - startTime)/1000;
         System.out.println("\nTotal execution time: " + totalTime + " seconds");
+
          */
 
+        /*
         final long startTime = System.currentTimeMillis();
 
         int maxNumOfGiven = 80;
@@ -70,6 +74,27 @@ public class Main {
         int given = 81;
         while(given > maxNumOfGiven){
             generatedSudoku = ThermoSudoku.GenerateSudoku(emptySudoku);
+            given = generatedSudoku.GetCellsGiven();
+        }
+        generatedSudoku.PrintSudoku(generatedSudoku.getFilledGrid());
+        System.out.println("\n");
+        generatedSudoku.PrintSudoku();
+        generatedSudoku.PrintSudokuStats();
+
+        final long endTime = System.currentTimeMillis();
+        final double totalTime = (double)(endTime - startTime)/1000;
+        System.out.println("\nTotal execution time: " + totalTime + " seconds");
+         */
+
+        final long startTime = System.currentTimeMillis();
+
+        int maxNumOfGiven = 30;
+
+        KillerSudokuType emptySudoku = new KillerSudokuType();
+        KillerSudokuType generatedSudoku = emptySudoku;
+        int given = 81;
+        while(given > maxNumOfGiven){
+            generatedSudoku = KillerSudoku.GenerateSudoku(emptySudoku);
             given = generatedSudoku.GetCellsGiven();
         }
         generatedSudoku.PrintSudoku(generatedSudoku.getFilledGrid());
