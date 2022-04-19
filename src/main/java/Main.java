@@ -1,10 +1,15 @@
 import arrow.ArrowSudoku;
 import classic.ClassicSudokuType;
 import arrow.ArrowSudokuType;
+import helper.Pair;
 import thermo.ThermoSudoku;
 import thermo.ThermoSudokuType;
 import killer.KillerSudoku;
 import killer.KillerSudokuType;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Main {
 
@@ -88,12 +93,14 @@ public class Main {
 
         final long startTime = System.currentTimeMillis();
 
-        int maxNumOfGiven = 30;
+        int maxNumOfGiven = 7;
 
         KillerSudokuType emptySudoku = new KillerSudokuType();
         KillerSudokuType generatedSudoku = emptySudoku;
         int given = 81;
-        while(given > maxNumOfGiven){
+        int attempt = 1;
+        while (given > maxNumOfGiven) {
+            System.out.println("Attempt #" + attempt++);
             generatedSudoku = KillerSudoku.GenerateSudoku(emptySudoku);
             given = generatedSudoku.GetCellsGiven();
         }
@@ -103,8 +110,42 @@ public class Main {
         generatedSudoku.PrintSudokuStats();
 
         final long endTime = System.currentTimeMillis();
-        final double totalTime = (double)(endTime - startTime)/1000;
+        final double totalTime = (double) (endTime - startTime) / 1000;
         System.out.println("\nTotal execution time: " + totalTime + " seconds");
 
+        /*
+        ArrayList<Pair<Integer, Integer>> cellsUsed = new ArrayList<>();
+        cellsUsed.add(new Pair<>(0, 0));
+        cellsUsed.add(new Pair<>(0, 1));
+        cellsUsed.add(new Pair<>(0, 2));
+        cellsUsed.add(new Pair<>(0, 3));
+        cellsUsed.add(new Pair<>(0, 4));
+        cellsUsed.add(new Pair<>(0, 5));
+        cellsUsed.add(new Pair<>(0, 6));
+        cellsUsed.add(new Pair<>(0, 7));
+        cellsUsed.add(new Pair<>(0, 8));
+        cellsUsed.add(new Pair<>(1, 0));
+        cellsUsed.add(new Pair<>(1, 1));
+        cellsUsed.add(new Pair<>(1, 2));
+        cellsUsed.add(new Pair<>(1, 3));
+        cellsUsed.add(new Pair<>(1, 4));
+        cellsUsed.add(new Pair<>(1, 5));
+        cellsUsed.add(new Pair<>(1, 6));
+        cellsUsed.add(new Pair<>(1, 7));
+        cellsUsed.add(new Pair<>(1, 8));
+        cellsUsed.add(new Pair<>(2, 0));
+        cellsUsed.add(new Pair<>(2, 2));
+        cellsUsed.add(new Pair<>(2, 3));
+        cellsUsed.add(new Pair<>(2, 6));
+        cellsUsed.add(new Pair<>(2, 7));
+        cellsUsed.add(new Pair<>(2, 8));
+        cellsUsed.add(new Pair<>(3, 0));
+        cellsUsed.add(new Pair<>(3, 1));
+        cellsUsed.add(new Pair<>(4, 1));
+        cellsUsed.add(new Pair<>(4, 2));
+
+
+        Pair<Boolean, Pair<Integer, Integer>> result = KillerSudoku.CheckValidFromCutOff(cellsUsed, new Pair<>(5, 3), new Pair<>(5, 4));
+        System.out.println(result);*/
     }
 }

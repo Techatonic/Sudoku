@@ -86,7 +86,7 @@ public class KillerSudokuType extends ClassicSudokuType{
         }
         System.out.println("Num of cages: " + this.cages.size());
         for (Pair<Integer, ArrayList<Pair<Integer, Integer>>> cage : this.cages) {
-            System.out.println("Sum: " + cage.getFirst());
+            System.out.println("\nSum: " + cage.getFirst());
             System.out.print("Points: ");
             for (Pair<Integer, Integer> point : cage.getSecond()) {
                 System.out.print(point.toString() + "   ");
