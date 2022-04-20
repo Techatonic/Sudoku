@@ -18,17 +18,18 @@ public class KillerSudoku extends ClassicSudoku {
         for(int row = 0; row < 9; row++){
             grid[row] = result.getSecond().get(row).stream().mapToInt(i->i).toArray();
         }
-        KillerSudokuType generatedGrid = new KillerSudokuType(sudoku.getType(), grid);
 
-        ArrayList<Pair<Integer, ArrayList<Pair<Integer, Integer>>>> cages = AddCages(new KillerSudokuType(sudoku.getType(), grid, new ArrayList<>()), new ArrayList<>());
-
-        System.out.println("Remove Cells:\n");
-        generatedGrid = new KillerSudokuType(sudoku.getType(), generatedGrid.getGrid(), cages);
-
-        int[][] unfilledGrid = RemoveCells(generatedGrid);
-
-        return new KillerSudokuType(sudoku.getType(), unfilledGrid, grid, cages);
-
+        int attempt = 1;
+        System.out.println();
+        while(true) {
+            System.out.println("Attempt #" + attempt++);
+            ArrayList<Pair<Integer, ArrayList<Pair<Integer, Integer>>>> cages = AddCages(new KillerSudokuType(sudoku.getType(), grid, new ArrayList<>()), new ArrayList<>());
+            KillerSudokuType killerGrid = new KillerSudokuType(sudoku.getType(), cages);
+            int solutions = SolveSudoku(killerGrid, 0);
+            if(solutions == 1) {
+                return new KillerSudokuType(sudoku.getType(), new int[9][9], grid, cages);
+            }
+        }
 
     }
     @SuppressWarnings("unchecked")
@@ -124,7 +125,7 @@ public class KillerSudoku extends ClassicSudoku {
             int counter = 1000;
             while (--counter > 0) {
                 //System.out.println("\n New point");
-                Pair<Integer, Integer> point = null;
+                Pair<Integer, Integer> point;
                 if(forcedPoint != null){
                     point = new Pair<>(forcedPoint);
                     //System.out.println("Forced: " + point);
@@ -188,7 +189,7 @@ public class KillerSudoku extends ClassicSudoku {
             }
             if(counter == 0){
                 int value = sudoku.getGrid()[startPosition.getFirst()][startPosition.getSecond()];
-                Pair<Integer, Integer>[] cells = new Pair[]{new Pair<Integer, Integer>(startPosition)};
+                Pair<Integer, Integer>[] cells = new Pair[]{new Pair<>(startPosition)};
                 ArrayList<Pair<Integer, Integer>> cellsList = (ArrayList<Pair<Integer, Integer>>) List.of(cells);
                 cages.add(new Pair<>(value, cellsList));
                 cellsUsed.addAll(cellsList);
@@ -221,52 +222,6 @@ public class KillerSudoku extends ClassicSudoku {
         }
         return null;
     }
-
-    public static int[][] RemoveCells(KillerSudokuType sudoku) {
-        List<List<List<Integer>>> possibilities = new ArrayList<>();
-        for(int x = 0; x < 9; x++){
-            possibilities.add(new ArrayList<>());
-            for(int y = 0; y < 9; y++){
-                possibilities.get(x).add(new ArrayList<>(Arrays.asList(x, y)));
-            }
-        }
-        return Remove(sudoku, possibilities, 1, System.currentTimeMillis());
-    }
-    private static int[][] Remove(KillerSudokuType sudoku, List<List<List<Integer>>> possibilities, int depth, double startTime){
-        if(possibilities.size() == 0){
-            return null;
-        }
-        double timeTakenSoFar = System.currentTimeMillis() - startTime;
-        System.out.println("Depth: " + depth + " - " + timeTakenSoFar + "ms");
-
-        int[][] grid;
-        for (int attempt = 0; attempt < attemptsToDo; attempt++){
-            grid = Arrays.stream(sudoku.getGrid()).map(int[]::clone).toArray(int[][]::new);
-
-            int choiceRowIndex = new Random(System.currentTimeMillis()).nextInt(possibilities.size());
-            List<List<Integer>> choiceRow = possibilities.get(choiceRowIndex);
-            List<Integer> choice = choiceRow.get(new Random(System.currentTimeMillis()).nextInt(choiceRow.size()));
-            grid[choice.get(0)][choice.get(1)] = 0;
-            //System.out.println("[" + choice.get(0) + ", " + choice.get(1) + "]\n");
-
-            int solutionsFound = SolveSudoku(new KillerSudokuType(sudoku.getType(), Arrays.stream(grid).map(int[]::clone).toArray(int[][]::new), sudoku.getCages()), 0);
-            if (solutionsFound == 1) {
-                possibilities.get(choiceRowIndex).remove(choiceRow.indexOf(choice));
-                if (possibilities.get(choiceRowIndex).size() == 0) {
-                    possibilities.remove(choiceRowIndex);
-                }
-                int[][] result = Remove(new KillerSudokuType(sudoku.getType(), grid, sudoku.getCages()), possibilities, depth+1, startTime);
-
-                if (result == null) {
-                    return sudoku.getGrid();
-                } else{
-                    return result;
-                }
-            }
-        }
-        return null;
-    }
-
 
     static int SolveSudoku(KillerSudokuType sudoku, int solutionsFound) {
         int[][] grid = Arrays.stream(sudoku.getGrid()).map(int[]::clone).toArray(int[][]::new);

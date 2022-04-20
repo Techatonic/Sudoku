@@ -43,6 +43,11 @@ public class KillerSudokuType extends ClassicSudokuType{
         super(grid);
         this.cages = cages;
     }
+    public KillerSudokuType(SudokuType type, ArrayList<Pair<Integer, ArrayList<Pair<Integer, Integer>>>> cages, int[][] filledGrid){
+        super(type);
+        this.setFilledGrid(filledGrid);
+        this.cages = cages;
+    }
 
 
     public KillerSudokuType(SudokuType type, int[][] unfilledGrid, int[][] filledGrid,

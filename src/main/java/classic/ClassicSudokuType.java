@@ -58,6 +58,8 @@ public class ClassicSudokuType {
         grid[row][col] = val;
     }
 
+    public void setFilledGrid(int[][] filledGrid) { this.filledGrid = filledGrid; }
+
     public void PrintSudoku() {
         PrintSudoku(this.grid);
     }

@@ -4,13 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ac6ce1b-eafc-4f9a-a23f-f9113f0e2687" name="Changes" comment="Killer Sudoku Partially Working">
+    <list default="true" id="4ac6ce1b-eafc-4f9a-a23f-f9113f0e2687" name="Changes" comment="Killer Sudoku Working with no given digits">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/classic/ClassicSudokuType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/classic/ClassicSudokuType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/killer/KillerSudoku.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/killer/KillerSudoku.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/killer/KillerSudokuType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/killer/KillerSudokuType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/Sudoku-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/Sudoku-1.0.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/classic/ClassicSudokuType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/classic/ClassicSudokuType.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/killer/KillerSudoku.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/killer/KillerSudoku.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/killer/KillerSudokuType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/killer/KillerSudokuType.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,7 +156,8 @@
     <MESSAGE value="Restructured filesystem" />
     <MESSAGE value="Thermo Sudoku Working" />
     <MESSAGE value="Killer Sudoku Partially Working" />
-    <option name="LAST_COMMIT_MESSAGE" value="Killer Sudoku Partially Working" />
+    <MESSAGE value="Killer Sudoku Working with no given digits" />
+    <option name="LAST_COMMIT_MESSAGE" value="Killer Sudoku Working with no given digits" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

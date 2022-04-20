@@ -96,14 +96,14 @@ public class Main {
         int maxNumOfGiven = 0;
 
         KillerSudokuType emptySudoku = new KillerSudokuType();
-        KillerSudokuType generatedSudoku = emptySudoku;
-        int given = 81;
-        int attempt = 1;
-        while (given > maxNumOfGiven) {
-            System.out.println("\nAttempt #" + attempt++);
-            generatedSudoku = KillerSudoku.GenerateSudoku(emptySudoku);
-            given = generatedSudoku.GetCellsGiven();
-        }
+        KillerSudokuType generatedSudoku;
+        //int given = 81;
+        //int attempt = 1;
+        //while (given > maxNumOfGiven) {
+        //System.out.println("\nAttempt #" + attempt++);
+        generatedSudoku = KillerSudoku.GenerateSudoku(emptySudoku);
+        //given = generatedSudoku.GetCellsGiven();
+        //}
         generatedSudoku.PrintSudoku(generatedSudoku.getFilledGrid());
         System.out.println("\n");
         generatedSudoku.PrintSudoku();
