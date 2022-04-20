@@ -9,7 +9,7 @@ import java.util.*;
 
 public class KillerSudoku extends ClassicSudoku {
 
-    static int attemptsToDo = 3;
+    static int attemptsToDo = 9;
     static int maxCageSize = 5;
 
     public static KillerSudokuType GenerateSudoku(KillerSudokuType sudoku){
@@ -230,15 +230,14 @@ public class KillerSudoku extends ClassicSudoku {
                 possibilities.get(x).add(new ArrayList<>(Arrays.asList(x, y)));
             }
         }
-        float startTime = System.currentTimeMillis();
-        return Remove(sudoku, possibilities, 1, startTime);
+        return Remove(sudoku, possibilities, 1, System.currentTimeMillis());
     }
-    private static int[][] Remove(KillerSudokuType sudoku, List<List<List<Integer>>> possibilities, int depth, float startTime){
+    private static int[][] Remove(KillerSudokuType sudoku, List<List<List<Integer>>> possibilities, int depth, double startTime){
         if(possibilities.size() == 0){
             return null;
         }
-        float timeTakenSoFar = System.currentTimeMillis() - startTime;
-        System.out.println("Depth: " + depth + " - " + timeTakenSoFar);
+        double timeTakenSoFar = System.currentTimeMillis() - startTime;
+        System.out.println("Depth: " + depth + " - " + timeTakenSoFar + "ms");
 
         int[][] grid;
         for (int attempt = 0; attempt < attemptsToDo; attempt++){
