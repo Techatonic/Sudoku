@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Sudoku:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Sudoku_jar</output-path>
+    <root id="archive" name="Sudoku.jar">
+      <element id="module-output" name="Sudoku" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-math3/3.1/commons-math3-3.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/commons-cli/commons-cli/1.4/commons-cli-1.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.3/commons-lang3-3.3.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

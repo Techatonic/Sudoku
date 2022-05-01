@@ -60,6 +60,44 @@ public class KillerSudokuType extends ClassicSudokuType{
         return cages;
     }
 
+    public Pair<Integer, ArrayList<Pair<Integer, Integer>>> getCage(Pair<Integer, Integer> pos){
+        for(Pair<Integer, ArrayList<Pair<Integer, Integer>>> cage : cages){
+            if(cage.getSecond().contains(pos)){
+                return cage;
+            }
+        }
+        return null;
+    }
+    public ArrayList<Pair<Integer, Integer>> getBox(Pair<Integer, Integer> pos){
+        ArrayList<Pair<Integer, Integer>> result = new ArrayList<>();
+        for(int row = pos.getFirst()/3*3; row < pos.getFirst()/3*3+3; row++){
+            for(int col = pos.getSecond()/3*3; col < pos.getSecond()/3*3+3; col++){
+                if(!(row == pos.getFirst() && col == pos.getSecond())) {
+                    result.add(new Pair<>(row, col));
+                }
+            }
+        }
+        return result;
+    }
+    public ArrayList<Pair<Integer, Integer>> getRow(Pair<Integer, Integer> pos){
+        ArrayList<Pair<Integer, Integer>> result = new ArrayList<>();
+        for(int col = 0; col < 9; col++){
+            if(col != pos.getSecond()){
+                result.add(new Pair<>(pos.getFirst(), col));
+            }
+        }
+        return result;
+    }
+    public ArrayList<Pair<Integer, Integer>> getCol(Pair<Integer, Integer> pos){
+        ArrayList<Pair<Integer, Integer>> result = new ArrayList<>();
+        for(int row = 0; row < 9; row++){
+            if(row != pos.getFirst()){
+                result.add(new Pair<>(row, pos.getSecond()));
+            }
+        }
+        return result;
+    }
+
     public void PrintSudoku() {
         for(int row=0; row < 9; row++){
             if(row % 3 == 0){
