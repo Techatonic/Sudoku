@@ -26,7 +26,7 @@ public class KillerSudoku extends ClassicSudoku {
             ArrayList<Pair<Integer, ArrayList<Pair<Integer, Integer>>>> cages = AddCages(new KillerSudokuType(sudoku.getType(), grid, new ArrayList<>()), new ArrayList<>());
             KillerSudokuType killerGrid = new KillerSudokuType(sudoku.getType(), cages);
             //System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            int solutions = SolveSudoku(killerGrid, 0, 0, GeneratePossibilitiesPerCell(), false);
+            int solutions = SolveSudoku(killerGrid, 0, GeneratePossibilitiesPerCell(), false);
             System.out.println("Solutions Found: " + solutions);
             if(solutions == 1) {
                 return new KillerSudokuType(sudoku.getType(), new int[9][9], grid, cages);
@@ -194,7 +194,7 @@ public class KillerSudoku extends ClassicSudoku {
         }
 
         KillerSudokuType updatedSudoku = new KillerSudokuType(sudoku.getType(), sudoku.getGrid(), cages);
-        int solutionsFound = SolveSudoku(updatedSudoku, 0, 0, GeneratePossibilitiesPerCell(), true);
+        int solutionsFound = SolveSudoku(updatedSudoku, 0, GeneratePossibilitiesPerCell(), true);
         if (solutionsFound == 1) {
             ArrayList<Pair<Integer, ArrayList<Pair<Integer, Integer>>>> result = AddCages(updatedSudoku, cellsUsed);
             if (result == null) {
@@ -219,7 +219,7 @@ public class KillerSudoku extends ClassicSudoku {
     }
 
 
-    static int SolveSudoku(KillerSudokuType sudoku, int solutionsFound, int depth, ArrayList<ArrayList<ArrayList<Integer>>> possibilities, boolean addCages) {
+    static int SolveSudoku(KillerSudokuType sudoku, int depth, ArrayList<ArrayList<ArrayList<Integer>>> possibilities, boolean addCages) {
         if(depth >= 79){
             System.out.println("Reached depth of " + depth);
         }
@@ -257,8 +257,7 @@ public class KillerSudoku extends ClassicSudoku {
                 sudoku.PrintSudoku();
             }
 
-            solutionsFound++;
-            return solutionsFound;
+            return 1; // Found one solution
         }
         // End Check if we're finished
 
@@ -303,6 +302,7 @@ public class KillerSudoku extends ClassicSudoku {
         //    return 0;
         //}
         // END Pick next element
+        int solutionsFound = 0;
         for(int attempt=0; attempt < possibilitiesClone.get(nextEmpty.getFirst()).get(nextEmpty.getSecond()).size(); attempt++){
             int newVal = possibilitiesClone.get(nextEmpty.getFirst()).get(nextEmpty.getSecond()).get(attempt);
             grid[nextEmpty.getFirst()][nextEmpty.getSecond()] = newVal;
@@ -317,9 +317,12 @@ public class KillerSudoku extends ClassicSudoku {
             ArrayList<ArrayList<ArrayList<Integer>>> newPossibilities = RemovePossibilities(sudoku, possibilitiesClone, nextEmpty, newVal);
             //System.out.println("Setting " + nextEmpty + " to " + newVal);
             //System.out.println(newPossibilities);
-            solutionsFound += SolveSudoku(new KillerSudokuType(sudoku.getType(), grid, sudoku.getCages()), solutionsFound, depth+1, newPossibilities, addCages);
-            if(solutionsFound != 0) {
-                System.out.println("Depth: " + depth + " - solutions: " + solutionsFound);
+            solutionsFound += SolveSudoku(new KillerSudokuType(sudoku.getType(), grid, sudoku.getCages()), depth+1, newPossibilities, addCages);
+            //if(solutionsFound != 0) {
+                //System.out.println("Depth: " + depth + " - solutions: " + solutionsFound);
+            //}
+            if(solutionsFound > 1){ // No point carrying on if we know we don't have a unique solution
+                return solutionsFound;
             }
             //System.out.println("Solutions Found: " + solutionsFound);
         }
