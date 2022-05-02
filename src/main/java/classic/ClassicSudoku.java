@@ -18,7 +18,7 @@ public class ClassicSudoku {
         }
         ClassicSudokuType generatedGrid = new ClassicSudokuType(sudoku.getType(), grid);
 
-        return new ClassicSudokuType(sudoku.getType(), RemoveCells(generatedGrid));
+        return new ClassicSudokuType(sudoku.getType(), RemoveCells(generatedGrid), grid);
     }
 
     public static int[][] RemoveCells(ClassicSudokuType sudoku) {
