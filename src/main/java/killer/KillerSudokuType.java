@@ -4,9 +4,10 @@ import classic.ClassicSudokuType;
 import helper.Pair;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class KillerSudokuType extends ClassicSudokuType{
-    private ArrayList<Pair<Integer, ArrayList<Pair<Integer, Integer>>>> cages = new ArrayList<>();
+    private ArrayList<Pair<Integer, List<Pair<Integer, Integer>>>> cages = new ArrayList<>();
 
     public KillerSudokuType(SudokuType type, int[][] grid) {
         super(type, grid);
@@ -24,26 +25,26 @@ public class KillerSudokuType extends ClassicSudokuType{
         super(grid);
     }
 
-    public KillerSudokuType(SudokuType type, int[][] grid, ArrayList<Pair<Integer, ArrayList<Pair<Integer, Integer>>>> cages) {
+    public KillerSudokuType(SudokuType type, int[][] grid, ArrayList<Pair<Integer, List<Pair<Integer, Integer>>>> cages) {
         super(type, grid);
         this.cages = cages;
     }
 
-    public KillerSudokuType(SudokuType type, ArrayList<Pair<Integer, ArrayList<Pair<Integer, Integer>>>> cages) {
+    public KillerSudokuType(SudokuType type, ArrayList<Pair<Integer, List<Pair<Integer, Integer>>>> cages) {
         super(type);
         this.cages = cages;
     }
 
-    public KillerSudokuType(ClassicSudokuType sudoku, ArrayList<Pair<Integer, ArrayList<Pair<Integer, Integer>>>> cages) {
+    public KillerSudokuType(ClassicSudokuType sudoku, ArrayList<Pair<Integer, List<Pair<Integer, Integer>>>> cages) {
         super(sudoku);
         this.cages = cages;
     }
 
-    public KillerSudokuType(int[][] grid, ArrayList<Pair<Integer, ArrayList<Pair<Integer, Integer>>>> cages) {
+    public KillerSudokuType(int[][] grid, ArrayList<Pair<Integer, List<Pair<Integer, Integer>>>> cages) {
         super(grid);
         this.cages = cages;
     }
-    public KillerSudokuType(SudokuType type, ArrayList<Pair<Integer, ArrayList<Pair<Integer, Integer>>>> cages, int[][] filledGrid){
+    public KillerSudokuType(SudokuType type, ArrayList<Pair<Integer, List<Pair<Integer, Integer>>>> cages, int[][] filledGrid){
         super(type);
         this.setFilledGrid(filledGrid);
         this.cages = cages;
@@ -51,17 +52,17 @@ public class KillerSudokuType extends ClassicSudokuType{
 
 
     public KillerSudokuType(SudokuType type, int[][] unfilledGrid, int[][] filledGrid,
-                            ArrayList<Pair<Integer, ArrayList<Pair<Integer, Integer>>>> cages) {
+                            ArrayList<Pair<Integer, List<Pair<Integer, Integer>>>> cages) {
         super(type, unfilledGrid, filledGrid);
         this.cages = cages;
     }
 
-    public ArrayList<Pair<Integer, ArrayList<Pair<Integer, Integer>>>> getCages(){
+    public ArrayList<Pair<Integer, List<Pair<Integer, Integer>>>> getCages(){
         return cages;
     }
 
-    public Pair<Integer, ArrayList<Pair<Integer, Integer>>> getCage(Pair<Integer, Integer> pos){
-        for(Pair<Integer, ArrayList<Pair<Integer, Integer>>> cage : cages){
+    public Pair<Integer, List<Pair<Integer, Integer>>> getCage(Pair<Integer, Integer> pos){
+        for(Pair<Integer, List<Pair<Integer, Integer>>> cage : cages){
             if(cage.getSecond().contains(pos)){
                 return cage;
             }
@@ -128,7 +129,7 @@ public class KillerSudokuType extends ClassicSudokuType{
             return;
         }
         System.out.println("Num of cages: " + this.cages.size());
-        for (Pair<Integer, ArrayList<Pair<Integer, Integer>>> cage : this.cages) {
+        for (Pair<Integer, List<Pair<Integer, Integer>>> cage : this.cages) {
             System.out.println("\nSum: " + cage.getFirst());
             System.out.print("Points: ");
             for (Pair<Integer, Integer> point : cage.getSecond()) {

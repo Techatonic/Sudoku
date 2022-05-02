@@ -3,13 +3,11 @@ package killer;
 import classic.ClassicSudoku;
 import helper.Pair;
 
-import java.math.BigInteger;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class KillerSudoku extends ClassicSudoku {
 
-    static int attemptsToDo = 9;
     static int maxCageSize = 5;
 
     public static KillerSudokuType GenerateSudoku(KillerSudokuType sudoku){
@@ -23,13 +21,54 @@ public class KillerSudoku extends ClassicSudoku {
         System.out.println();
         while(true) {
             System.out.println("\nAttempt #" + attempt++);
-            ArrayList<Pair<Integer, ArrayList<Pair<Integer, Integer>>>> cages = AddCages(new KillerSudokuType(sudoku.getType(), grid, new ArrayList<>()), new ArrayList<>());
+            ArrayList<Pair<Integer, List<Pair<Integer, Integer>>>> cages;
+            try {
+                 cages = AddCages(new KillerSudokuType(sudoku.getType(), grid, new ArrayList<>()), new ArrayList<>());
+            } catch (CageDuplicateValueException e){
+                System.out.println(e.getMessage());
+                continue;
+            }
+            /*ArrayList<Pair<Integer, List<Pair<Integer, Integer>>>> cages = new ArrayList<>();
+            cages.add(new Pair<>(16, List.of(new Pair<>(0, 0), new Pair<>(0, 1))));
+            cages.add(new Pair<>( 8, List.of(new Pair<>(0, 2), new Pair<>(0, 3))));
+            cages.add(new Pair<>(28, List.of(new Pair<>(0, 4), new Pair<>(1, 4), new Pair<>(2, 4), new Pair<>(2, 5), new Pair<>(2, 6))));
+            cages.add(new Pair<>( 6, List.of(new Pair<>(0, 5), new Pair<>(0, 6))));
+            cages.add(new Pair<>(16, List.of(new Pair<>(0, 7), new Pair<>(1, 7), new Pair<>(1, 6), new Pair<>(1, 5))));
+            cages.add(new Pair<>(17, List.of(new Pair<>(0, 8), new Pair<>(1, 8))));
+            cages.add(new Pair<>(20, List.of(new Pair<>(1, 0), new Pair<>(1, 1), new Pair<>(1, 2), new Pair<>(2, 2), new Pair<>(2, 1))));
+            cages.add(new Pair<>(12, List.of(new Pair<>(1, 3), new Pair<>(2, 3), new Pair<>(3, 3))));
+            cages.add(new Pair<>(17, List.of(new Pair<>(2, 0), new Pair<>(3, 0), new Pair<>(4, 0), new Pair<>(5, 0), new Pair<>(5, 1))));
+            cages.add(new Pair<>(15, List.of(new Pair<>(2, 7), new Pair<>(3, 7), new Pair<>(3, 6))));
+            cages.add(new Pair<>(13, List.of(new Pair<>(2, 8), new Pair<>(3, 8))));
+            cages.add(new Pair<>(11, List.of(new Pair<>(3, 1), new Pair<>(4, 1))));
+            cages.add(new Pair<>(11, List.of(new Pair<>(3, 2), new Pair<>(4, 2))));
+            cages.add(new Pair<>(14, List.of(new Pair<>(3, 4), new Pair<>(3, 5))));
+            cages.add(new Pair<>(11, List.of(new Pair<>(4, 3), new Pair<>(5, 3))));
+            cages.add(new Pair<>(15, List.of(new Pair<>(4, 4), new Pair<>(5, 4), new Pair<>(5, 5))));
+            cages.add(new Pair<>(17, List.of(new Pair<>(4, 5), new Pair<>(4, 6), new Pair<>(4, 7))));
+            cages.add(new Pair<>( 8, List.of(new Pair<>(4, 8), new Pair<>(5, 8))));
+            cages.add(new Pair<>(16, List.of(new Pair<>(5, 2), new Pair<>(6, 2), new Pair<>(6, 3))));
+            cages.add(new Pair<>(13, List.of(new Pair<>(5, 6), new Pair<>(6, 6))));
+            cages.add(new Pair<>(10, List.of(new Pair<>(5, 7), new Pair<>(6, 7), new Pair<>(6, 8))));
+            cages.add(new Pair<>(11, List.of(new Pair<>(6, 0), new Pair<>(6, 1), new Pair<>(7, 1))));
+            cages.add(new Pair<>(18, List.of(new Pair<>(6, 4), new Pair<>(6, 5), new Pair<>(7, 5))));
+            cages.add(new Pair<>(35, List.of(new Pair<>(7, 0), new Pair<>(8, 0), new Pair<>(8, 1), new Pair<>(8, 2), new Pair<>(8, 3))));
+            cages.add(new Pair<>(19, List.of(new Pair<>(7, 2), new Pair<>(7, 3), new Pair<>(7, 4), new Pair<>(8, 4), new Pair<>(8, 5))));
+            cages.add(new Pair<>(11, List.of(new Pair<>(7, 6), new Pair<>(8, 6))));
+            cages.add(new Pair<>(11, List.of(new Pair<>(7, 7), new Pair<>(8, 7))));
+            cages.add(new Pair<>( 6, List.of(new Pair<>(7, 8), new Pair<>(8, 8))));*/
+
+
             KillerSudokuType killerGrid = new KillerSudokuType(sudoku.getType(), cages);
-            //System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             int solutions = SolveSudoku(killerGrid, 0, GeneratePossibilitiesPerCell(), false);
             System.out.println("Solutions Found: " + solutions);
             if(solutions == 1) {
                 return new KillerSudokuType(sudoku.getType(), new int[9][9], grid, cages);
+            }
+            if(solutions == 0){
+                System.out.println(cages);
+                new KillerSudokuType(sudoku.getType(), new int[9][9], grid, cages).PrintSudokuStats();
+                return null;
             }
             //break;
         }
@@ -81,8 +120,8 @@ public class KillerSudoku extends ClassicSudoku {
     }
 
     @SuppressWarnings("unchecked")
-    private static ArrayList<Pair<Integer, ArrayList<Pair<Integer, Integer>>>> AddCages(KillerSudokuType sudoku, ArrayList<Pair<Integer, Integer>> cellsUsed) {
-        ArrayList<Pair<Integer, ArrayList<Pair<Integer, Integer>>>> cages = (ArrayList<Pair<Integer, ArrayList<Pair<Integer, Integer>>>>) sudoku.getCages().clone();
+    private static ArrayList<Pair<Integer, List<Pair<Integer, Integer>>>> AddCages(KillerSudokuType sudoku, ArrayList<Pair<Integer, Integer>> cellsUsed) throws CageDuplicateValueException {
+        ArrayList<Pair<Integer, List<Pair<Integer, Integer>>>> cages = (ArrayList<Pair<Integer, List<Pair<Integer, Integer>>>>) sudoku.getCages().clone();
 
         // Find next free cell for start position
         Pair<Integer, Integer> startPosition = null;
@@ -125,6 +164,9 @@ public class KillerSudoku extends ClassicSudoku {
                 Pair<Integer, Integer> point;
                 if(forcedPoint != null){
                     point = new Pair<>(forcedPoint);
+                    if(values.contains(sudoku.getGrid()[point.getFirst()][point.getSecond()])){
+                        throw new CageDuplicateValueException("Duplicate value in cage");
+                    }
                 } else {
                     possibilities.clear();
                     for (int dx = -1; dx <= 1; dx++) {
@@ -196,7 +238,7 @@ public class KillerSudoku extends ClassicSudoku {
         KillerSudokuType updatedSudoku = new KillerSudokuType(sudoku.getType(), sudoku.getGrid(), cages);
         int solutionsFound = SolveSudoku(updatedSudoku, 0, GeneratePossibilitiesPerCell(), true);
         if (solutionsFound == 1) {
-            ArrayList<Pair<Integer, ArrayList<Pair<Integer, Integer>>>> result = AddCages(updatedSudoku, cellsUsed);
+            ArrayList<Pair<Integer, List<Pair<Integer, Integer>>>> result = AddCages(updatedSudoku, cellsUsed);
             if (result == null) {
                 return updatedSudoku.getCages();
             } else {
@@ -220,9 +262,6 @@ public class KillerSudoku extends ClassicSudoku {
 
 
     static int SolveSudoku(KillerSudokuType sudoku, int depth, ArrayList<ArrayList<ArrayList<Integer>>> possibilities, boolean addCages) {
-        if(depth >= 79){
-            System.out.println("Reached depth of " + depth);
-        }
         // Possibilities count
         /*BigInteger total = BigInteger.ONE;
         for(int row = 0; row < 9; row++){
@@ -252,11 +291,6 @@ public class KillerSudoku extends ClassicSudoku {
             }
         }
         if(nextEmpty == null){
-            if(!addCages) {
-                System.out.println("Solved");
-                sudoku.PrintSudoku();
-            }
-
             return 1; // Found one solution
         }
         // End Check if we're finished
@@ -280,28 +314,12 @@ public class KillerSudoku extends ClassicSudoku {
         if(min.getSecond().size() == 0){
             return 0;
         }
-        //options.sort(Comparator.comparingInt(a -> a.getSecond().size()));
-        //System.out.println(options.stream().map(Pair::getFirst).collect(Collectors.toList()));
-        //System.out.println(sudoku.getGrid()[0][0]);
 
-        if(depth >= 79){
-            System.out.println(options);
-            sudoku.PrintSudoku();
-        }
-
-        //nextEmpty = options.get(0).getFirst();
         nextEmpty = min.getFirst();
-
         //System.out.println(nextEmpty);
 
-        //if(options.get(0).getSecond().size() == 0){
-            //System.out.println("\nFailed at depth: " + depth);
-            //System.out.println(options);
-
-            // No options for this cell so there are no solutions
-        //    return 0;
-        //}
         // END Pick next element
+
         int solutionsFound = 0;
         for(int attempt=0; attempt < possibilitiesClone.get(nextEmpty.getFirst()).get(nextEmpty.getSecond()).size(); attempt++){
             int newVal = possibilitiesClone.get(nextEmpty.getFirst()).get(nextEmpty.getSecond()).get(attempt);
@@ -334,7 +352,7 @@ public class KillerSudoku extends ClassicSudoku {
         if(!ClassicSudoku.ValidGrid(sudoku.getGrid())){
             return false;
         }
-        for(Pair<Integer, ArrayList<Pair<Integer, Integer>>> cage : sudoku.getCages()){
+        for(Pair<Integer, List<Pair<Integer, Integer>>> cage : sudoku.getCages()){
             int sumVal = cage.getSecond().stream().mapToInt(x -> sudoku.getGrid()[x.getFirst()][x.getSecond()]).sum();
             List<Pair<Integer, Integer>> newSum = cage.getSecond().stream().filter(x -> sudoku.getGrid()[x.getFirst()][x.getSecond()] != 0).toList();
 
@@ -392,7 +410,7 @@ public class KillerSudoku extends ClassicSudoku {
         }
 
         // Remove vals too large in cage
-        Pair<Integer, ArrayList<Pair<Integer, Integer>>> cage = sudoku.getCage(updatedPos);
+        Pair<Integer, List<Pair<Integer, Integer>>> cage = sudoku.getCage(updatedPos);
         int sumVal = cage.getSecond().stream().mapToInt(x -> sudoku.getGrid()[x.getFirst()][x.getSecond()]).sum() + newVal;
         List<Pair<Integer, Integer>> nonZeroCells = cage.getSecond().stream().filter(x -> sudoku.getGrid()[x.getFirst()][x.getSecond()] != 0).toList();
 
@@ -405,10 +423,6 @@ public class KillerSudoku extends ClassicSudoku {
                 }
             }
         }
-
-        // Remove updated position from possibilities list
-        //int index = updatedPos.getSecond();
-        //clone.get(updatedPos.getFirst()).remove(index);
 
         return clone;
 
