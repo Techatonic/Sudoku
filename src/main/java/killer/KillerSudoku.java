@@ -21,11 +21,15 @@ public class KillerSudoku extends ClassicSudoku {
         System.out.println();
         while(true) {
             System.out.println("\nAttempt #" + attempt++);
+            final long startTime = System.currentTimeMillis();
             ArrayList<Pair<Integer, List<Pair<Integer, Integer>>>> cages;
             try {
                  cages = AddCages(new KillerSudokuType(sudoku.getType(), grid, new ArrayList<>()), new ArrayList<>());
             } catch (CageDuplicateValueException e){
                 System.out.println(e.getMessage());
+                final long endTime = System.currentTimeMillis();
+                final double totalTime = (double) (endTime - startTime) / 1000;
+                System.out.println("Attempt execution time: " + totalTime + " seconds");
                 continue;
             }
             /*ArrayList<Pair<Integer, List<Pair<Integer, Integer>>>> cages = new ArrayList<>();
@@ -62,18 +66,14 @@ public class KillerSudoku extends ClassicSudoku {
             KillerSudokuType killerGrid = new KillerSudokuType(sudoku.getType(), cages);
             int solutions = SolveSudoku(killerGrid, 0, GeneratePossibilitiesPerCell(), false);
             System.out.println("Solutions Found: " + solutions);
+            final long endTime = System.currentTimeMillis();
+            final double totalTime = (double) (endTime - startTime) / 1000;
+            System.out.println("Attempt execution time: " + totalTime + " seconds");
             if(solutions == 1) {
                 return new KillerSudokuType(sudoku.getType(), new int[9][9], grid, cages);
             }
-            if(solutions == 0){
-                System.out.println(cages);
-                new KillerSudokuType(sudoku.getType(), new int[9][9], grid, cages).PrintSudokuStats();
-                return null;
-            }
-            //break;
         }
 
-        //return null;
     }
     @SuppressWarnings("unchecked")
     public static Pair<Boolean, Pair<Integer, Integer>> CheckValidFromCutOff(ArrayList<Pair<Integer, Integer>> cellsUsed, ArrayList<Pair<Integer, Integer>> points, Pair<Integer, Integer> newPoint){

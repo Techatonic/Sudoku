@@ -1,4 +1,5 @@
 /home/danny/IdeaProjects/Sudoku/src/main/java/killer/KillerSudokuType.java
+/home/danny/IdeaProjects/Sudoku/src/main/java/killer/CageDuplicateValueException.java
 /home/danny/IdeaProjects/Sudoku/src/main/java/classic/ClassicSudokuType.java
 /home/danny/IdeaProjects/Sudoku/src/main/java/killer/KillerSudoku.java
 /home/danny/IdeaProjects/Sudoku/src/main/java/Main.java

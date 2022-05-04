@@ -1,11 +1,12 @@
 killer/KillerSudoku.class
+classic/ClassicSudoku.class
 Main.class
 classic/ClassicSudokuType$SudokuType.class
 arrow/ArrowSudoku.class
 killer/KillerSudokuType.class
 classic/ClassicSudokuType.class
+killer/CageDuplicateValueException.class
 thermo/ThermoSudokuType.class
 helper/Pair.class
-classic/ClassicSudoku.class
 thermo/ThermoSudoku.class
 arrow/ArrowSudokuType.class

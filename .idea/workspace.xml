@@ -4,14 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ac6ce1b-eafc-4f9a-a23f-f9113f0e2687" name="Changes" comment="Killer Sudoku Optimisation Working">
-      <change afterPath="$PROJECT_DIR$/src/main/java/killer/CageDuplicateValueException.java" afterDir="false" />
+    <list default="true" id="4ac6ce1b-eafc-4f9a-a23f-f9113f0e2687" name="Changes" comment="Fixed bug where some sudokus had 0 valid solutions">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_cli_commons_cli_1_5_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_projog_projog_clp_0_1_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_projog_projog_core_0_6_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/helper/TooManyOptionsException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sudoku.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Sudoku.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/killer/KillerSudoku.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/killer/KillerSudoku.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/killer/KillerSudokuType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/killer/KillerSudokuType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/Sudoku-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/Sudoku-1.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/killer/KillerSudoku.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/killer/KillerSudoku.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/killer/KillerSudokuType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/killer/KillerSudokuType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +44,7 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
+        <option name="alwaysUpdateSnapshots" value="true" />
         <option name="usePluginRegistry" value="true" />
       </MavenGeneralSettings>
     </option>
@@ -54,11 +64,12 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -148,7 +159,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651404299991</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Fixed bug where some sudokus had 0 valid solutions">
+      <created>1651535673754</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1651535673754</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -184,7 +202,8 @@
     <MESSAGE value="Killer Sudoku Partially Working" />
     <MESSAGE value="Killer Sudoku Working with no given digits" />
     <MESSAGE value="Killer Sudoku Optimisation Working" />
-    <option name="LAST_COMMIT_MESSAGE" value="Killer Sudoku Optimisation Working" />
+    <MESSAGE value="Fixed bug where some sudokus had 0 valid solutions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed bug where some sudokus had 0 valid solutions" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
