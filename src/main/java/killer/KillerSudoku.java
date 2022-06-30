@@ -2,7 +2,16 @@ package killer;
 
 import classic.ClassicSudoku;
 import helper.Pair;
+import org.projog.api.Projog;
+import org.projog.api.QueryResult;
+import org.projog.api.QueryStatement;
+import org.projog.core.term.Atom;
+import org.projog.core.term.ListFactory;
+import org.projog.core.term.Term;
+import org.projog.core.term.Variable;
 
+import javax.management.Query;
+import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -64,7 +73,11 @@ public class KillerSudoku extends ClassicSudoku {
 
 
             KillerSudokuType killerGrid = new KillerSudokuType(sudoku.getType(), cages);
-            int solutions = SolveSudoku(killerGrid, 0, GeneratePossibilitiesPerCell(), false);
+            //int solutions = SolveSudoku(killerGrid, 0, GeneratePossibilitiesPerCell(), false);
+
+            int solutions = runPrologSolver(killerGrid);
+
+
             System.out.println("Solutions Found: " + solutions);
             final long endTime = System.currentTimeMillis();
             final double totalTime = (double) (endTime - startTime) / 1000;
@@ -428,4 +441,82 @@ public class KillerSudoku extends ClassicSudoku {
 
     }
 
+    static int runPrologSolver(KillerSudokuType killerSudoku){
+        // Projog
+        Projog projog = new Projog();
+        projog.consultFile(new File("src/main/resources/killersudoku"));
+
+
+        StringBuilder string = new StringBuilder();
+        for(Pair<Integer, List<Pair<Integer, Integer>>> cage : killerSudoku.getCages()){
+            string.append("[");
+            string.append(cage.getFirst());
+            for(Pair<Integer, Integer> cell : cage.getSecond()){
+                string.append(",");
+                string.append("[").append(cell.getFirst() + 1).append(", ").append(cell.getSecond() + 1).append("]");
+            }
+            string.append("]");
+            string.append(",");
+        }
+        string.setLength(string.length() - 1); // Remove final comma
+        Variable solution = new Variable("Solution");
+        QueryStatement s1 = projog.createStatement("go([" + string + "]," + solution + ").");
+
+        System.out.println("go([" + string + "], Solution).");
+
+        QueryResult r1;
+        synchronized (KillerSudoku.class) {
+            r1 = s1.executeQuery();
+        }
+
+        synchronized (KillerSudoku.class) {
+            int numOfSolutions = 0;
+            while (r1.next()) {
+                System.out.println("Found solution");
+                System.out.println(r1.getTerm("Solution"));
+                numOfSolutions++;
+            }
+            projog.printProjogStackTrace(new Throwable(), System.out);
+            System.out.println("Returning");
+            return 1;
+            //return numOfSolutions;
+        }
+
+        /*
+        org.projog.core.term.List terms = null;
+        for(Pair<Integer, List<Pair<Integer, Integer>>> cage : killerSudoku.getCages()){
+            org.projog.core.term.List cells = null;//new org.projog.core.term.List(new Atom("[]"), new Atom("[]"));
+            for(Pair<Integer, Integer> cell : cage.getSecond()){
+                //cells.add(new org.projog.core.term.List(new Atom(cell.getFirst().toString()), new Atom(cell.getSecond().toString())));
+                if(cells == null){
+                    cells = new org.projog.core.term.List(new org.projog.core.term.List(new Atom(cell.getFirst().toString()), new Atom(cell.getSecond().toString())), new Atom(".()"));
+                } else {
+                    cells = new org.projog.core.term.List(new org.projog.core.term.List(new Atom(cell.getFirst().toString()), new Atom(cell.getSecond().toString())), cells);
+                }
+            }
+            //terms.add(new org.projog.core.term.List(new Atom(cage.getFirst().toString()), ));
+            assert cells != null;
+            cells = new org.projog.core.term.List(new Atom(cage.getFirst().toString()), cells);
+            if(terms == null){
+                terms = new org.projog.core.term.List(cells, new Atom(".()"));
+            } else{
+                terms = new org.projog.core.term.List(cells, terms);
+            }
+        }
+        Variable solution = new Variable("Solution");
+        QueryStatement s1 = projog.createStatement("go(" + terms + "," + solution + ").");
+        System.out.println("go(" + terms + "," + solution + ").");
+        QueryResult r1 = s1.executeQuery();
+
+        int numOfSolutions = 0;
+        while (r1.next()) {
+            System.out.println("Found solution");
+            System.out.println(r1.getTerm("Solution"));
+            numOfSolutions++;
+        }
+        //return 1;
+        return numOfSolutions;
+
+         */
+    }
 }

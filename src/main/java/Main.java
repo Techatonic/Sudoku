@@ -1,26 +1,39 @@
 import arrow.ArrowSudoku;
 import arrow.ArrowSudokuType;
 import classic.ClassicSudokuType;
+import com.google.api.core.ApiFuture;
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.WriteResult;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+import com.google.firebase.cloud.FirestoreClient;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.protobuf.Api;
+import com.sun.jersey.api.client.Client;
 import helper.TooManyOptionsException;
 import org.apache.commons.cli.*;
-import org.projog.api.Projog;
-import org.projog.api.QueryResult;
-import org.projog.api.QueryStatement;
-import org.projog.core.term.Atom;
+
 import thermo.ThermoSudoku;
 import thermo.ThermoSudokuType;
 import killer.KillerSudoku;
 import killer.KillerSudokuType;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Stream;
 
 public class Main {
 
     public static void main(String[] args) {
         /*
-        Projog projog = new Projog();
-        projog.consultFile(new File("src/main/resources/killerSudoku"));
-
         QueryStatement s1 = projog.createStatement("sudoku(" +
                 "[" +
                 "    (15, [A1, B1])," +
@@ -65,22 +78,13 @@ public class Main {
                 "[G1, G2, G3, G4, G5, G6, G7, G8, G9]," +
                 "[H1, H2, H3, H4, H5, H6, H7, H8, H9]," +
                 "[I1, I2, I3, I4, I5, I6, I7, I8, I9]]).");
-        QueryResult r1 = s1.executeQuery();
-        while(r1.next()){
-            System.out.println("I3 = " + r1.getTerm("I3"));
-        }
-        for(String variable : r1.getVariableIds()) {
-            System.out.println(variable + " = " + r1.getTerm(variable));
-        }
-        System.out.println("Done");
-
          */
 
         Options options = new Options();
         options.addOption("c", "classic", false, "Generate classic sudoku");
-        options.addOption("a", "arrow",   false, "Generate arrow sudoku");
-        options.addOption("t", "thermo",  false, "Generate thermo sudoku");
-        options.addOption("k", "killer",  false, "Generate killer sudoku");
+        options.addOption("a", "arrow", false, "Generate arrow sudoku");
+        options.addOption("t", "thermo", false, "Generate thermo sudoku");
+        options.addOption("k", "killer", false, "Generate killer sudoku");
 
         CommandLineParser parser = new DefaultParser();
         try {
@@ -89,23 +93,22 @@ public class Main {
                     .of(cmd.hasOption("c"), cmd.hasOption("a"), cmd.hasOption("t"), cmd.hasOption("k"))
                     .filter(b -> b)
                     .count();
-            if(optionCount > 1){
+            if (optionCount > 1) {
                 throw new TooManyOptionsException("Too many command line options selected");
             }
-            if(cmd.hasOption("c")){
+            if (cmd.hasOption("c") || optionCount == 0) {
                 GenerateClassicSudoku();
-            } else if(cmd.hasOption("a")){
+            } else if (cmd.hasOption("a")) {
                 GenerateArrowSudoku();
-            } else if(cmd.hasOption("t")){
+            } else if (cmd.hasOption("t")) {
                 GenerateThermoSudoku();
-            } else if(cmd.hasOption("k")){
+            } else if (cmd.hasOption("k")) {
                 GenerateKillerSudoku();
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.getMessage());
         }
-
     }
 
 
@@ -160,7 +163,7 @@ public class Main {
         System.out.println("\nTotal execution time: " + totalTime + " seconds");
     }
 
-    static void GenerateKillerSudoku(){
+    static void GenerateKillerSudoku() throws Exception {
         final long startTime = System.currentTimeMillis();
 
         KillerSudokuType emptySudoku = new KillerSudokuType();
@@ -174,8 +177,42 @@ public class Main {
         final long endTime = System.currentTimeMillis();
         final double totalTime = (double) (endTime - startTime) / 1000;
         System.out.println("\nTotal execution time: " + totalTime + " seconds");
+
+        SendToDatabase(generatedSudoku);
     }
 
+    private static void SendToDatabase(KillerSudokuType sudoku) throws Exception {
+        /*String credentialsPath = "/home/danny/IdeaProjects/Sudoku/serviceAccouontKey.json";
+        Client client = Client.create();
+        FirebaseSdk sdk = new FirebaseSdk(
+                "https://sudoku-27fa4-default-rtdb.europe-west1.firebasedatabase.app/",
+                credentialsPath,
+                client
+        );
+
+        sdk.setValue("x", "3");
+
+         */
+
+        InputStream credentialsPath = new FileInputStream("/home/danny/IdeaProjects/Sudoku/sudoku-27fa4-0e734eeb02cb.json");
+        GoogleCredentials credentials = GoogleCredentials.fromStream(credentialsPath);
+        FirebaseOptions options = new FirebaseOptions.Builder()
+                .setCredentials(credentials)
+                .build();
+
+        FirebaseApp.initializeApp(options);
+        Firestore db = FirestoreClient.getFirestore();
+
+
+        DocumentReference documentReference = db.collection("killerSudokus").document();
+        Map<String, Object> data = new HashMap<>();
+        data.put("sudoku", sudoku);
+
+        ApiFuture<WriteResult> result = documentReference.set(data);
+        System.out.println("\nUpdate Time: " + result.get().getUpdateTime());
+
+
+    }
 
 
 

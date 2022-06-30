@@ -1,7 +1,9 @@
 killer/KillerSudoku.class
+helper/TooManyOptionsException.class
 classic/ClassicSudoku.class
 Main.class
 classic/ClassicSudokuType$SudokuType.class
+FirebaseSdk.class
 arrow/ArrowSudoku.class
 killer/KillerSudokuType.class
 classic/ClassicSudokuType.class

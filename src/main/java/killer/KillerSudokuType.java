@@ -3,10 +3,11 @@ package killer;
 import classic.ClassicSudokuType;
 import helper.Pair;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KillerSudokuType extends ClassicSudokuType{
+public class KillerSudokuType extends ClassicSudokuType implements Serializable {
     private ArrayList<Pair<Integer, List<Pair<Integer, Integer>>>> cages = new ArrayList<>();
 
     public KillerSudokuType(SudokuType type, int[][] grid) {
