@@ -64,7 +64,7 @@ public class KillerSudoku extends ClassicSudoku {
 
 
             KillerSudokuType killerGrid = new KillerSudokuType(sudoku.getType(), cages);
-            int solutions = SolveSudoku(killerGrid, 0, GeneratePossibilitiesPerCell(), false);
+            int solutions = SolveSudoku(killerGrid, 0, GeneratePossibilitiesPerCell(), 0);
             System.out.println("Solutions Found: " + solutions);
             final long endTime = System.currentTimeMillis();
             final double totalTime = (double) (endTime - startTime) / 1000;
@@ -236,7 +236,7 @@ public class KillerSudoku extends ClassicSudoku {
         }
 
         KillerSudokuType updatedSudoku = new KillerSudokuType(sudoku.getType(), sudoku.getGrid(), cages);
-        int solutionsFound = SolveSudoku(updatedSudoku, 0, GeneratePossibilitiesPerCell(), true);
+        int solutionsFound = SolveSudoku(updatedSudoku, 0, GeneratePossibilitiesPerCell(), 0);
         if (solutionsFound == 1) {
             ArrayList<Pair<Integer, List<Pair<Integer, Integer>>>> result = AddCages(updatedSudoku, cellsUsed);
             if (result == null) {
@@ -261,7 +261,10 @@ public class KillerSudoku extends ClassicSudoku {
     }
 
 
-    static int SolveSudoku(KillerSudokuType sudoku, int depth, ArrayList<ArrayList<ArrayList<Integer>>> possibilities, boolean addCages) {
+    static int SolveSudoku(KillerSudokuType sudoku, int depth, ArrayList<ArrayList<ArrayList<Integer>>> possibilities, int solutionsFoundSoFar) {
+        if(solutionsFoundSoFar > 1){
+            return solutionsFoundSoFar;
+        }
         // Possibilities count
         /*BigInteger total = BigInteger.ONE;
         for(int row = 0; row < 9; row++){
@@ -335,7 +338,7 @@ public class KillerSudoku extends ClassicSudoku {
             ArrayList<ArrayList<ArrayList<Integer>>> newPossibilities = RemovePossibilities(sudoku, possibilitiesClone, nextEmpty, newVal);
             //System.out.println("Setting " + nextEmpty + " to " + newVal);
             //System.out.println(newPossibilities);
-            solutionsFound += SolveSudoku(new KillerSudokuType(sudoku.getType(), grid, sudoku.getCages()), depth+1, newPossibilities, addCages);
+            solutionsFound += SolveSudoku(new KillerSudokuType(sudoku.getType(), grid, sudoku.getCages()), depth+1, newPossibilities, solutionsFound);
             //if(solutionsFound != 0) {
                 //System.out.println("Depth: " + depth + " - solutions: " + solutionsFound);
             //}
@@ -427,5 +430,4 @@ public class KillerSudoku extends ClassicSudoku {
         return clone;
 
     }
-
 }

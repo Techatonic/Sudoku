@@ -12,6 +12,8 @@ import thermo.ThermoSudokuType;
 import killer.KillerSudoku;
 import killer.KillerSudokuType;
 
+import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Stream;
 
 public class Main {
@@ -160,7 +162,7 @@ public class Main {
         System.out.println("\nTotal execution time: " + totalTime + " seconds");
     }
 
-    static void GenerateKillerSudoku(){
+    static void GenerateKillerSudoku() throws IOException, ExecutionException, InterruptedException {
         final long startTime = System.currentTimeMillis();
 
         KillerSudokuType emptySudoku = new KillerSudokuType();
@@ -174,6 +176,8 @@ public class Main {
         final long endTime = System.currentTimeMillis();
         final double totalTime = (double) (endTime - startTime) / 1000;
         System.out.println("\nTotal execution time: " + totalTime + " seconds");
+
+        SendSudokuToDatabase.SendKillerSudokuToDatabase(generatedSudoku);
     }
 
 
