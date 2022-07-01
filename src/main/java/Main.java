@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
+    public static void main(String[] args) throws Exception {
         /*
         Projog projog = new Projog();
         projog.consultFile(new File("src/main/resources/killerSudoku"));
@@ -122,7 +122,7 @@ public class Main {
         }
     }
 
-    static void GenerateSudoku(char sudokuType) throws IOException, ExecutionException, InterruptedException {
+    static void GenerateSudoku(char sudokuType) throws Exception {
         switch (sudokuType) {
             case 'c' -> GenerateClassicSudoku();
             case 'a' -> GenerateArrowSudoku();
@@ -185,7 +185,7 @@ public class Main {
         System.out.println("\nTotal execution time: " + totalTime + " seconds");
     }
 
-    static void GenerateKillerSudoku() throws IOException, ExecutionException, InterruptedException {
+    static void GenerateKillerSudoku() throws Exception {
         final long startTime = System.currentTimeMillis();
 
         KillerSudokuType emptySudoku = new KillerSudokuType();
