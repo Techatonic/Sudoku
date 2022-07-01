@@ -1,3 +1,4 @@
+import classic.ClassicSudokuType.SudokuType;
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.*;
@@ -16,6 +17,13 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class SendSudokuToDatabase {
+
+    static Map<SudokuType, String> collectionNameBySudokuType = Map.ofEntries(
+            Map.entry(SudokuType.Classic, "classicsudokus"),
+            Map.entry(SudokuType.Arrow, "arrowsudokus"),
+            Map.entry(SudokuType.Thermo, "thermosudokus"),
+            Map.entry(SudokuType.Killer, "killersudokus")
+    );
 
     static boolean firebaseInitialised = false;
 
@@ -50,9 +58,9 @@ public class SendSudokuToDatabase {
 
         Firestore db = FirestoreClient.getFirestore();
 
-        int documentCount = GetDocumentCountInCollection(db, "killerSudokus");
+        int documentCount = GetDocumentCountInCollection(db, collectionNameBySudokuType.get(SudokuType.Killer));
 
-        DocumentReference document = db.collection("killerSudokus").document("killerSudoku-"+(documentCount+1));
+        DocumentReference document = db.collection(collectionNameBySudokuType.get(SudokuType.Killer)).document("killerSudoku-"+(documentCount+1));
         Map<String, Object> data = new HashMap<>();
 
         // Grid
@@ -91,7 +99,7 @@ public class SendSudokuToDatabase {
             System.out.println("Update time : " + cageResult.get().getUpdateTime());
         }
 
-        IncrementDocumentCount(db, "killerSudokus", documentCount+1);
+        IncrementDocumentCount(db, collectionNameBySudokuType.get(SudokuType.Killer), documentCount+1);
     }
 
     static void IncrementDocumentCount(Firestore db, String collection, int newVal) throws ExecutionException, InterruptedException {
