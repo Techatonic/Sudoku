@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
         /*
         Projog projog = new Projog();
         projog.consultFile(new File("src/main/resources/killerSudoku"));
@@ -84,6 +84,8 @@ public class Main {
         options.addOption("t", "thermo",  false, "Generate thermo sudoku");
         options.addOption("k", "killer",  false, "Generate killer sudoku");
 
+        char sudokuType = 'c';
+
         CommandLineParser parser = new DefaultParser();
         try {
             CommandLine cmd = parser.parse(options, args);
@@ -94,20 +96,41 @@ public class Main {
             if(optionCount > 1){
                 throw new TooManyOptionsException("Too many command line options selected");
             }
-            if(cmd.hasOption("c")){
-                GenerateClassicSudoku();
-            } else if(cmd.hasOption("a")){
-                GenerateArrowSudoku();
+            if(cmd.hasOption("a")){
+                sudokuType = 'a';
             } else if(cmd.hasOption("t")){
-                GenerateThermoSudoku();
+                sudokuType = 't';
             } else if(cmd.hasOption("k")){
-                GenerateKillerSudoku();
+                sudokuType = 'k';
             }
         } catch (Exception e){
             e.printStackTrace();
             System.out.println(e.getMessage());
         }
 
+        int count = 1;
+        if(args.length > 1){
+            try {
+                count = Integer.parseInt(args[1]);
+            } catch (Exception e){
+                System.out.println("Command line arguments have not been entered correctly");
+                return;
+            }
+        }
+        for(int i = 0; i < count; i++){
+            GenerateSudoku(sudokuType);
+        }
+    }
+
+    static void GenerateSudoku(char sudokuType) throws IOException, ExecutionException, InterruptedException {
+        switch (sudokuType) {
+            case 'c' -> GenerateClassicSudoku();
+            case 'a' -> GenerateArrowSudoku();
+            case 't' -> GenerateThermoSudoku();
+            case 'k' -> GenerateKillerSudoku();
+            default -> {
+            }
+        }
     }
 
 

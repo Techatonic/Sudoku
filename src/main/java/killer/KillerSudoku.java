@@ -84,9 +84,6 @@ public class KillerSudoku extends ClassicSudoku {
 
         int maxRow = Math.min(used.stream().mapToInt(Pair::getFirst).max().orElse(0) + 2, 9);
 
-        //System.out.println("\n\n" + cellsUsed);
-        //System.out.println(maxY);
-
         for(int row = 0; row < maxRow; row++){
             for(int column = 0; column < 9; column++){
                 Pair<Integer, Integer> pos = new Pair<>(row, column);

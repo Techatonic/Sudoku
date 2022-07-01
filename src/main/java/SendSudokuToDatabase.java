@@ -20,15 +20,20 @@ import java.util.concurrent.ExecutionException;
 
 public class SendSudokuToDatabase {
 
+    static boolean firebaseInitialised = false;
+
     public static void SendKillerSudokuToDatabase(KillerSudokuType sudoku) throws IOException, ExecutionException, InterruptedException {
+        if(!firebaseInitialised) {
+            InputStream serviceAccount = new FileInputStream("/home/danny/IdeaProjects/Sudoku/sudoku-27fa4-0e734eeb02cb.json");
+            GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
+            FirebaseOptions options = new FirebaseOptions.Builder()
+                    .setCredentials(credentials)
+                    .build();
 
-        InputStream serviceAccount = new FileInputStream("/home/danny/IdeaProjects/Sudoku/sudoku-27fa4-0e734eeb02cb.json");
-        GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
-        FirebaseOptions options = new FirebaseOptions.Builder()
-                .setCredentials(credentials)
-                .build();
+            FirebaseApp.initializeApp(options);
+            firebaseInitialised = true;
+        }
 
-        FirebaseApp.initializeApp(options);
         Firestore db = FirestoreClient.getFirestore();
 
         DocumentReference document = db.collection("killerSudokus").document();

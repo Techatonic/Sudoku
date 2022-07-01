@@ -1,6 +1,5 @@
 killer/KillerSudoku.class
 helper/TooManyOptionsException.class
-helper/Cage.class
 classic/ClassicSudoku.class
 Main.class
 classic/ClassicSudokuType$SudokuType.class
