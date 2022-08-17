@@ -3,20 +3,22 @@ import arrow.ArrowSudokuType;
 import classic.ClassicSudokuType;
 import helper.TooManyOptionsException;
 import org.apache.commons.cli.*;
-import org.projog.api.Projog;
-import org.projog.api.QueryResult;
-import org.projog.api.QueryStatement;
-import org.projog.core.term.Atom;
 import thermo.ThermoSudoku;
 import thermo.ThermoSudokuType;
 import killer.KillerSudoku;
 import killer.KillerSudokuType;
 
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
+import java.util.Map;
 import java.util.stream.Stream;
 
 public class Main {
+
+    public static Map<ClassicSudokuType.SudokuType, String> collectionNameBySudokuType = Map.ofEntries(
+            Map.entry(ClassicSudokuType.SudokuType.Classic, "classicsudokus"),
+            Map.entry(ClassicSudokuType.SudokuType.Arrow, "arrowsudokus"),
+            Map.entry(ClassicSudokuType.SudokuType.Thermo, "thermosudokus"),
+            Map.entry(ClassicSudokuType.SudokuType.Killer, "killersudokus")
+    );
 
     public static void main(String[] args) throws Exception {
         /*
@@ -134,11 +136,13 @@ public class Main {
     }
 
 
-    static void GenerateClassicSudoku(){
+    static void GenerateClassicSudoku() throws Exception {
         ClassicSudokuType sudoku = new classic.ClassicSudokuType(classic.ClassicSudokuType.SudokuType.Classic);
         ClassicSudokuType unfilledSudoku = classic.ClassicSudoku.GenerateSudoku(sudoku);
         unfilledSudoku.PrintSudoku();
         unfilledSudoku.PrintSudokuStats();
+
+        new SendClassicSudokuToDatabase(unfilledSudoku);
     }
 
     static void GenerateArrowSudoku(){
@@ -200,7 +204,7 @@ public class Main {
         final double totalTime = (double) (endTime - startTime) / 1000;
         System.out.println("\nTotal execution time: " + totalTime + " seconds");
 
-        SendSudokuToDatabase.SendKillerSudokuToDatabase(generatedSudoku);
+        new SendKillerSudokuToDatabase(generatedSudoku);
     }
 
 

@@ -1,11 +1,12 @@
 killer/KillerSudoku.class
 helper/TooManyOptionsException.class
+SendClassicSudokuToDatabase.class
 classic/ClassicSudoku.class
 Main.class
 classic/ClassicSudokuType$SudokuType.class
 arrow/ArrowSudoku.class
 killer/KillerSudokuType.class
-SendSudokuToDatabase.class
+SendKillerSudokuToDatabase.class
 classic/ClassicSudokuType.class
 killer/CageDuplicateValueException.class
 thermo/ThermoSudokuType.class
