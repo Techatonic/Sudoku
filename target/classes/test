@@ -1,4 +1,8 @@
+:- initialization go.
 
-append([], A, A).
-append([H|T], A, [H|R]) :- append(T, A, R).
+appendA([], A, A).
+appendA([H|T], A, [H|R]) :- appendA(T, A, R).
 
+
+
+go :- print(1), appendA([1, 2, 3], 4, X), print(X).

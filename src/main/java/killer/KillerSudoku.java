@@ -2,6 +2,9 @@ package killer;
 
 import classic.ClassicSudoku;
 import helper.Pair;
+import org.projog.api.Projog;
+import org.projog.api.QueryStatement;
+import org.projog.core.term.Variable;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -64,17 +67,24 @@ public class KillerSudoku extends ClassicSudoku {
 
 
             KillerSudokuType killerGrid = new KillerSudokuType(sudoku.getType(), cages);
-            int solutions = SolveSudoku(killerGrid, 0, GeneratePossibilitiesPerCell(), 0);
-            System.out.println("Solutions Found: " + solutions);
-            final long endTime = System.currentTimeMillis();
-            final double totalTime = (double) (endTime - startTime) / 1000;
-            System.out.println("Attempt execution time: " + totalTime + " seconds");
-            if(solutions == 1) {
-                return new KillerSudokuType(sudoku.getType(), new int[9][9], grid, cages);
-            }
+            // NOT GUARANTEED TO HAVE UNIQUE SOLUTION - THIS IS CHECKED WITH PYTHON SCRIPT
+            return new KillerSudokuType(sudoku.getType(), new int[9][9], grid, cages);
+
+
+
+            //int solutions = SolveSudoku(killerGrid, 0, GeneratePossibilitiesPerCell(), 0);
+            //int solutions = CountSolutionsUsingProlog(killerGrid);
+//            System.out.println("Solutions Found: " + solutions);
+//            final long endTime = System.currentTimeMillis();
+//            final double totalTime = (double) (endTime - startTime) / 1000;
+//            System.out.println("Attempt execution time: " + totalTime + " seconds");
+//            if(solutions == 1) {
+//                return new KillerSudokuType(sudoku.getType(), new int[9][9], grid, cages);
+//            }
         }
 
     }
+
     @SuppressWarnings("unchecked")
     public static Pair<Boolean, Pair<Integer, Integer>> CheckValidFromCutOff(ArrayList<Pair<Integer, Integer>> cellsUsed, ArrayList<Pair<Integer, Integer>> points, Pair<Integer, Integer> newPoint){
         ArrayList<Pair<Integer, Integer>> used = (ArrayList<Pair<Integer, Integer>>) cellsUsed.clone();

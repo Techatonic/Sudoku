@@ -1,6 +1,9 @@
 import arrow.ArrowSudoku;
 import arrow.ArrowSudokuType;
 import classic.ClassicSudokuType;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import helper.TooManyOptionsException;
 import org.apache.commons.cli.*;
 import thermo.ThermoSudoku;
@@ -8,7 +11,12 @@ import thermo.ThermoSudokuType;
 import killer.KillerSudoku;
 import killer.KillerSudokuType;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 public class Main {
@@ -110,7 +118,7 @@ public class Main {
             System.out.println(e.getMessage());
         }
 
-        int count = 1;
+        int count = 100;
         if(args.length > 1){
             try {
                 count = Integer.parseInt(args[1]);
@@ -204,10 +212,31 @@ public class Main {
         final double totalTime = (double) (endTime - startTime) / 1000;
         System.out.println("\nTotal execution time: " + totalTime + " seconds");
 
-        new SendKillerSudokuToDatabase(generatedSudoku);
+        saveSudoku(generatedSudoku);
+
+//        new SendKillerSudokuToDatabase(generatedSudoku);
     }
 
+    private static void saveSudoku(KillerSudokuType generatedSudoku) throws IOException {
+        Gson gson = new Gson();
 
+        //try (FileWriter file = new FileWriter("/home/danny/Documents/Uni/Year3/Diss/pythonProject/sudokus/" + UUID.randomUUID().toString() + ".json")){
+
+
+        File file = File.createTempFile("killer_sudoku_", "", new File("/home/danny/Documents/Coding/Python/sudoku-python-csp/sudokus"));
+
+        try (FileWriter file_writer = new FileWriter(file.getAbsolutePath() + ".json")){
+            gson.toJson(generatedSudoku, file_writer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            file.delete();
+        } catch (Exception e){
+            return;
+        }
+        System.out.println("Saved");
+    }
 
 
 }
